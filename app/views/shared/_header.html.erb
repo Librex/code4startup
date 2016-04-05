@@ -27,7 +27,7 @@
 		      <% else%>
 		        <!-- Dropdown Trigger -->
 			      <li><a class="dropdown-button valign-wrapper" href="#!" data-activates="dropdown1">
-			      	current_user.email<i class="mdi-navigation-arrow-drop-down right"></i></a>
+			      	<%= current_user.name %><i class="mdi-navigation-arrow-drop-down right"></i></a>
 			      </li>
 		      <% end %>
 	        
@@ -40,7 +40,7 @@
 		      <% else%>
 		        <!-- Dropdown Trigger -->
 			      <li><a class="dropdown-button valign-wrapper" href="#!" data-activates="dropdown2">
-				      current_user.email<i class="mdi-navigation-arrow-drop-down right"></i></a>
+				      <%= current_user.name %><i class="mdi-navigation-arrow-drop-down right"></i></a>
 				    </li>
 		      <% end %>
 	      </ul>
