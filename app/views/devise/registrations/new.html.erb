@@ -4,7 +4,7 @@
     <h5>Sign up</h5>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
+        <%= render partial: "shared/devisemes" %>
 
       <div class="input-field">
         <%= f.text_field :name, autofocus: true, :class => "validate", :placeholder => "Name" %>
