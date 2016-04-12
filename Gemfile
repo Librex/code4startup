@@ -15,6 +15,9 @@ gem 'materialize-sass'
 gem 'devise', '~> 3.5', '>= 3.5.2'
 gem 'toastr-rails'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
