@@ -20,5 +20,8 @@ Devise.setup do |config|
 
   require 'omniauth-facebook'
   config.omniauth :facebook, '1701771886731756', 'd6cb6ad5106c976834d2cddd8acdc875'
+
+  require 'omniauth-github'
+  config.omniauth :github, '417180855f57b2c9de21', 'f7717217bb7c77cd4622dcfe60a46f7f4df6ade2', scope: "user:email"
   
 end
