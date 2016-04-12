@@ -20,6 +20,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 
+gem 'activeadmin', github: 'activeadmin'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
