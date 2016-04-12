@@ -23,6 +23,8 @@ gem 'omniauth-github'
 gem 'activeadmin', github: 'activeadmin'
 gem 'active_skin'
 
+gem 'paperclip', '~> 4.3', '>= 4.3.2'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
