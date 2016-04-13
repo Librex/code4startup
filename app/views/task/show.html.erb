@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-no-turbolink>
 	<div class="col m4">
 		<div class="card z-depth-2">
 			<div class="card-content">
@@ -11,9 +11,9 @@
 						<% else %>
 							<%= link_to [task.project, task], class: "collection-item" do %>
 								<%= task.title %>
+								<% end %>
 							<% end %>
 						<% end %>
-					<% end %>
 				</div>
 			</div>
 		</div>
@@ -21,14 +21,57 @@
 
 	<div class="col m8">
 		<div class="card z-depth-2">
-			<div class="card-content">
-				<%= @task.video %>
+				
+			<div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+				<div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+					<div class="wistia_embed wistia_async_<%= @task.video %> videoFoam=true" style="height:100%;width:100%">
+					&nbsp;
+					</div>
+				</div>
 			</div>
-			<div class="card-action grey-text text-darken-4">
+
+			<div class="row">
+				<div class="col m6">
+					<% if !@prev_task.nil? %>
+						<%= link_to "Prev", [@prev_task.project, @prev_task], class: "btn btn-primary" %>
+					<% else %>	
+						&nbsp;
+					<% end %>
+				</div>
+				<div class="col m6">
+					<% if !@next_task.nil? %>
+						<span class="right">
+							<%= link_to "Next", [@next_task.project, @next_task], class: "btn btn-primary" %>
+						</span>
+					<% end %>
+				</div>
+			</div>
+	
+			</div>
+				<div class="card-action grey-text text-darken-4">
+				<button class="btn btn-primary" onclick="setPlaySpeed(0.75)">0.75x</button>
+				<button class="btn btn-primary" onclick="setPlaySpeed(1)">1x</button>
+				<button class="btn btn-primary" onclick="setPlaySpeed(1.25)">1.25x</button>
+				<button class="btn btn-primary" onclick="setPlaySpeed(1.5)">1.5x</button>
+				<button class="btn btn-primary" onclick="setPlaySpeed(2)">2x</button>
+				
 				<h5><%= @task.title %></h5>
 				<hr>
 				<%= markdown(@task.note) %>
 			</div>
-		</div>
 	</div>
 </div>	
+
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+
+<script>
+	wistiaEmbed = Wistia.embed("<%= @task.video %>", {
+		videoQuality: "hd-only",
+		videoFoam: true
+	});
+
+	function setPlaySpeed(speed) {
+		wistiaEmbed.playbackRate(speed);
+	}
+</script>
+
