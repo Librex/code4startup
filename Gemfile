@@ -25,6 +25,9 @@ gem 'active_skin'
 
 gem 'paperclip', '~> 4.3', '>= 4.3.2'
 
+gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem 'coderay', '~> 1.1.0'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
