@@ -1,15 +1,15 @@
 <header>
 	<!-- Dropdown Structure -->
-	<ul id="dropdown1" class="dropdown-content">
+	<ul id="dropdown1" class="dropdown-content mask">
 	  <li><%= link_to "My Profile", edit_user_registration_path %></li>
-	  <li><a href="#!">My Courses</a></li>
+	  <li><%= link_to "My Projects", myprojects_path %></li>
 	  <li class="divider"></li>
 	  <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
 	</ul>
 
-	<ul id="dropdown2" class="dropdown-content">
+	<ul id="dropdown2" class="dropdown-content mask">
 	  <li><%= link_to "My Profile", edit_user_registration_path %></li>
-	  <li><a href="#!">My Courses</a></li>
+	  <li><%= link_to "My Projects", myprojects_path %></li>
 	  <li class="divider"></li>
 	  <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
 	</ul>

@@ -1,0 +1,34 @@
+<h1>This is My Projects page</h1>
+
+<div class="row">
+<br/>
+
+	<% if @projects.count > 0 %>
+
+		<% @projects.each do |project| %>
+			<%= link_to project do %>
+				<div class="col s12 m6 l4">
+					<div class="card">
+						
+						<div class="card-image">
+							<%= image_tag project.image %>
+						</div>
+						
+						<div class="card-content" style="height: 6em">
+							<span class="card-title grey-text text-darken-4">
+								<%= project.shortname %>
+							</span>
+						</div>
+
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	<% else %>
+		<div class="center">
+			<h5>Currently you're not in any projects!</h5>
+			<%= link_to "Show me all Projects", root_path, class: "btn btn-primary" %>
+		</div>
+	<% end %>
+
+</div>
