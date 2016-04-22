@@ -17,6 +17,11 @@ class ProjectController < ApplicationController
   	end
 
   	@users = @project.users.order('created_at desc').first(10)
+  	
+    @review = Review.new
+    @reviews = @project.reviews
+
+    @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def list

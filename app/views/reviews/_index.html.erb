@@ -1,0 +1,41 @@
+<% if @reviews.blank? %>
+	<span class="center"><h4>There is no review yet</h4></span>
+<% end %>
+
+<% @reviews.order("id desc").each do |r| %>
+	<hr>
+	<div class="row">
+
+		<div class="col m1">
+			<%= image_tag avatar_url(r.user), class: "circle responsive-img avatar-small" %>
+		</div>
+
+		<div class="col m10">
+			<div>
+				<strong><%= r.user.name %></strong>				
+				<span class="right"><%= timeago(r.created_at) %></span>	
+			</div>
+			<div id="stars_<%= r.id %>"></div>
+			<div><%= r.comment %></div>
+			<div>
+				<%= link_to "Remove", [@project, r], method: :delete, data: {confirm: "Are you sure?"} if current_user && current_user.id == r.user.id %>
+			</div>
+			
+		</div>
+	</div>
+
+	<script>
+		$('#stars_<%= r.id %>').raty({
+			path: '/assets',
+			readOnly: true,
+			score: <%= r.star %>
+		});
+	</script>
+
+<% end %>
+
+<script>
+	$(function() {
+		$("time.timeago").timeago();
+	})
+</script>

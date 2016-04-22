@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :project do
   resources :task, only: [:show]
   end
+
+  resources :project do
+    resources :reviews, only: [:create, :destroy]
+  end
   
   resources :blogs
   # The priority is based upon order of creation: first created -> highest priority.
