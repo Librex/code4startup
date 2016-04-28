@@ -82,13 +82,13 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => '' } # desolate-tor-7475.herokuapp.com
+  config.action_mailer.default_url_options = { :host => 'lit-shelf-84992.herokuapp.com' } # desolate-tor-7475.herokuapp.com
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => 'smtp.sendgrid.net',
     #:address => 'smtp.gmail.net',
     :port => '587',
-    :domain => "", #https://desolate-tor-7475.herokuapp.com
+    :domain => "https://lit-shelf-84992.herokuapp.com", #https://desolate-tor-7475.herokuapp.com
     :authentication => 'plain',
     :user_name => ENV['SENDGRID_USERNAME'],
     :password => ENV['SENDGRID_PASSWORD']

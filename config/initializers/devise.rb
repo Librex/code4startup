@@ -1,6 +1,7 @@
 Devise.setup do |config|
 
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'code4startup@librex.co.jp'
+  config.mailer = "SignUpMailer"
 
   require 'devise/orm/active_record'
 
