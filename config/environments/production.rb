@@ -29,7 +29,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -76,4 +76,22 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # SendGridの設定、ActionMailerの設定、DEVISEはproduction環境に下記の記述を書かなくても、
+  # デフォルトで別ファイルで設定されているから、development.rbにだけ記述すればOKなの？
+  # Don't care if the mailer can't send.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { :host => '' } # desolate-tor-7475.herokuapp.com
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => 'smtp.sendgrid.net',
+    #:address => 'smtp.gmail.net',
+    :port => '587',
+    :domain => "", #https://desolate-tor-7475.herokuapp.com
+    :authentication => 'plain',
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD']
+}
+  
 end
