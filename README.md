@@ -48,7 +48,13 @@ pushした後にGitHubのページにアクセスして、プルリクエスト�
 
 Issue作る時に、お願いしたいことをなるべく明確にするようにしてますが、ちょっとしたモレとか、互いの認識のズレとかが生まれるかもしれので、そのIssue対応をする上でどんな順番で作業してく予定かおおまかに書いておいてもらえると嬉しいです！（後は何か作業上でわからないことが出た場合にフォローできるため）
 
+[![https://diveintocode.gyazo.com/1d8a760bd508375e7d357e24186b52b7](https://t.gyazo.com/teams/diveintocode/1d8a760bd508375e7d357e24186b52b7.png)](https://diveintocode.gyazo.com/1d8a760bd508375e7d357e24186b52b7)
 
+
+### WIPについて
+
+*WIP(work in progress) 作業中であることを示す
+*Fixed                 作業完了であることを示す　
 
 ### プルリクエストを作成したら
 プルリクエスト作成後は、slackでレビュー担当者にメンションをつけて知らせてください。
