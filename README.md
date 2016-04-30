@@ -13,7 +13,7 @@ http://b.pyar.bz/blog/2014/01/22/github-flow/
 
 ### 実際の作業の流れ
 
-Fブランチ作る時には、issueのIDと紐付ける形にしてください。
+ブランチ作る時には、issueのIDと紐付ける形にしてください。
 
 例えばですが、Let's Encrypt使ってHTTPS対応するというIssueを対応する場合には以下のように、対応してもらえればOKです
 
@@ -36,12 +36,16 @@ git co -b "issue-59"
 
 空のコミット作る
 
+```
 git commit --allow-empty -m "[WIP]Let's Encrypt使ってHTTPS対応"
+```
 pushする
 
 現在のブランチをpushする
-
+```
 git push origin ISSUE-59
+```
+
 pushした後に、プルリクエスト作ってGitHub上でこれからやる作業についてまとめる
 
 pushした後にGitHubのページにアクセスして、プルリクエストを作ってください。
@@ -53,8 +57,8 @@ Issue作る時に、お願いしたいことをなるべく明確にするよう
 
 ### WIPについて
 
-*WIP(work in progress) 作業中であることを示す
-*Fixed                 作業完了であることを示す　
+* WIP(work in progress) 作業中であることを示す  
+* Fixed                 作業完了であることを示す　
 
 ### プルリクエストを作成したら
 プルリクエスト作成後は、slackでレビュー担当者にメンションをつけて知らせてください。
