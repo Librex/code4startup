@@ -1,6 +1,7 @@
 Devise.setup do |config|
 
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'code4startup@librex.co.jp'
+  config.mailer = "SignUpMailer"
 
   require 'devise/orm/active_record'
 
@@ -8,6 +9,7 @@ Devise.setup do |config|
   config.strip_whitespace_keys = [:email]
   config.skip_session_storage = [:http_auth]
   config.stretches = Rails.env.test? ? 1 : 10
+  config.secret_key = '7f2a0b5bd01e88d890bba4b5538d728426136ca1b92892a66b57b8f7a8a125ad64c0a1be3a07c2b6c0c44f6ae8483c3623bd8ab76b9469c1e21eeaf4514d2439'
 
   config.reconfirmable = true
   config.expire_all_remember_me_on_sign_out = true
