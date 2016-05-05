@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
   def create
-    super
+    super 
     UserMailer.registration_confirmation(resource).deliver_now unless resource.invalid?
   end
 
