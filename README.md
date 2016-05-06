@@ -66,3 +66,7 @@ Issue作る時に、お願いしたいことをなるべく明確にするよう
 例
 
 [![https://diveintocode.gyazo.com/6b1d93cd3e1a2b7a6daee8bfb22874aa](https://t.gyazo.com/teams/diveintocode/6b1d93cd3e1a2b7a6daee8bfb22874aa.png)](https://diveintocode.gyazo.com/6b1d93cd3e1a2b7a6daee8bfb22874aa)
+### bundle installについて  
+```
+bundle install --path vendor/bundle
+```
