@@ -5,7 +5,7 @@ set :application, 'code4startup'
 set :repo_url, 'git@github.com:Librex/code4startup.git'
 
 # Default branch is :master
-set :branch, 'master'
+set :branch, ENV['BRANCH'] || 'master'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/rails/code4startup'
@@ -26,7 +26,7 @@ set :deploy_to, '/var/www/rails/code4startup'
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -34,7 +34,9 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-set :rbenv_ruby, '2.3.0p0'
+set :rbenv_ruby, '2.3.0'
+set :rbenv_type, :system
+set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
 namespace :deploy do
   desc 'Restart application'
