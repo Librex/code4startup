@@ -34,9 +34,21 @@ gem 'active_admin-sortable_tree', '~> 0.2.1'
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
+# Use Unicorn as the app server
+gem 'unicorn'
+gem 'unicorn-worker-killer'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
 
+group :development do
+  # Use Capistrano for deployment
+  gem 'capistrano', '3.4.0'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-unicorn'
+end
