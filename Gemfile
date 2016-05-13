@@ -37,7 +37,7 @@ gem 'figaro', '~> 1.1', '>= 1.1.1'
 # Use Unicorn as the app server
 gem 'unicorn'
 gem 'unicorn-worker-killer'
-
+gem 'dotenv-rails'
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
