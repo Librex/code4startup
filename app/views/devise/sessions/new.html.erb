@@ -1,14 +1,18 @@
 <div class="row">
   <div class="col m6 offset-m3 center">
+    <br>
 
-    <h5>Log In</h5>
+    <h5>ログイン（ソーシャル連携）</h5>
     
-    <%= link_to "Log in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn red darken-1" %>
+    <%= link_to "Googleでログイン", user_omniauth_authorize_path(:google_oauth2), class: "btn red darken-1" %>
     <br/><br/>
-    <%= link_to "Log in with Facebook", user_omniauth_authorize_path(:facebook), class: "btn blue darken-4" %>
+    <%= link_to "Facebookでログイン", user_omniauth_authorize_path(:facebook), class: "btn blue darken-4" %>
      <br/><br/>
-    <%= link_to "Log in with Github", user_omniauth_authorize_path(:github), class: "btn grey darken-2" %>
+    <%= link_to "Githubでログイン", user_omniauth_authorize_path(:github), class: "btn grey darken-2" %>
+    <br/><br/>
     
+    <div class="divider"></div>
+    <h5>ログイン（登録したメールアドレスを使用）</h5>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
            <%= render partial: "shared/devisemes" %>
 
@@ -20,8 +24,8 @@
         <%= f.password_field :password, :id => "email", :class => "validate", :placeholder => "Password", autocomplete: "off" %>
       </div>
 
-      <button class="btn waves-effect waves-light" type="submit" name="action">Login</button>
-      <%= link_to "Forgot password", new_user_password_path, :class => "btn waves-effect waves-light" %>
+      <button class="btn waves-effect waves-light" type="submit" name="action">ログイン</button>
+      <%= link_to "パスワードを忘れた？", new_user_password_path, :class => "btn waves-effect waves-light" %>
     <% end %>
 
   </div>

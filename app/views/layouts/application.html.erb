@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Code4startup</title>
+  <title>Code4Startup - Japan | 実在するサイトをベースにプログラミング学習を。</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
   <%= csrf_meta_tags %>
   
   <%= yield :head %>
@@ -12,7 +15,7 @@
 
 		<%= render partial: "shared/header" %>		
 		<%= render partial: "shared/message" %>
-		
+
 		<main>
 			<div class="container">
 				<%= yield %>		

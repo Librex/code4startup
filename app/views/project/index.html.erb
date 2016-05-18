@@ -1,7 +1,29 @@
-<div class="row" data-no-turbolink>
-<br/>
+</div>
+<div class="row intro grey lighten-4">
+	<div class="col s12 m12">
+		<div class="container">
+			<div class="row">
+				<div class="col m12 s12 center white-text ">
+					<h2>実在するサービスをモデルにプログラミング学習を｡</h2><h2><u>AirBnb</u>, <u>TaskRabbit</u>, <u>Tinder</u>・・・</h2>
+					<h5 class="margin-top-20">Get the software development service you want.</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col m12 s12 center white-text">
+					<%= link_to "会員登録（無料）をする", new_user_registration_path, class: "btn-large orange cloud_get_started waves-effect waves-light white-text" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-	<% @projects.each do |project| %>
+<div class="container">
+	<div class="row" data-no-turbolink>
+		<div class="center">
+			<h2 class="grey-text text-darken-1">プロジェクト一覧</h2>
+			<a class="grey-text text-darken-1">実在するサービスをモデルに、サービスを作るプログラミングの過程を動画で配信します。</a>
+		</div>
+		<% @projects.each do |project| %>
 		<%= link_to project do %>
 			<div class="col s12 m6 l4">
 				<div class="card">
@@ -21,4 +43,74 @@
 		<% end %>
 	<% end %>
 
+</div>
+
+
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="medium material-icons">flash_on</i></h2>
+            <h5 class="center">勉強効率をアップ！</h5>
+            <p class="light">簡単なアプリではなく、実際に存在する人気のあるアプリやサービスをモデルに実践的なサービスを作ることができます。実際にプログラマが作ってみたいアプリやサイトに近いものが作れるため、ワクワクしてプログラミングの勉強ができます！</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="medium material-icons">group</i></h2>
+            <h5 class="center">どんな人に役立つの？</h5>
+
+            <p class="light">学生、初心者～上級者プログラマー、スタートアップ起業家、流行の言語を使ってみたい人・・・など。さらに、勉強できる言語は、Ruby on Rails, Swift, AngularJS, NodeJS, Ionic, HTML5, CSS3など、随時や増えます。</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="medium material-icons">theaters</i></h2>
+            <h5 class="center">動画による解説</h5>
+
+            <p class="light">プログラミングを動画で解説します。動画なので、自分のペースで繰り返し勉強することができます。また、なぜ今そのコードを書いているのか？などの解説をリアルタイムで聞くことで、より深くプログラムに対する理解が深まります。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+
+  </div>
+
+
+<div class="container grey lighten-1">
+	<div class="row">
+		
+			<div class="col s6 center">
+				<img src="/assets/intro.png">
+			</div>
+			<div class="col s6">
+				<h5>Code4Startupとは</h5>
+				<p>
+				Code4Startupは、オーストラリア発のスタートアップです。
+				</p>
+				
+				<p>
+				オリジナルサイト：https://code4startup.com
+				</p>
+				
+				<p>
+				Code4Startup-JPは、Code4Startupと提携をし、動画教材の字幕、吹き替えを行います。更に、独自コンテンツを動画教材として配信します。
+				</p>
+							
+			<div class="row">
+				<div class="center white-text">
+					<%= link_to "会員登録（無料）をする", new_user_registration_path, class: "btn-large orange cloud_get_started waves-effect waves-light white-text" %>
+				</div>
+			</div>
+			</div>
+	</div>
 </div>
