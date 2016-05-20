@@ -4,12 +4,7 @@
 
     <h5>ログイン（ソーシャル連携）</h5>
     
-    <%= link_to "Googleでログイン", user_omniauth_authorize_path(:google_oauth2), class: "btn red darken-1" %>
-    <br/><br/>
-    <%= link_to "Facebookでログイン", user_omniauth_authorize_path(:facebook), class: "btn blue darken-4" %>
-     <br/><br/>
-    <%= link_to "Githubでログイン", user_omniauth_authorize_path(:github), class: "btn grey darken-2" %>
-    <br/><br/>
+　　<%= render 'devise/shared/social_links', social_devise: "ログイン" %>
     
     <div class="divider"></div>
     <h5>ログイン（登録したメールアドレスを使用）</h5>

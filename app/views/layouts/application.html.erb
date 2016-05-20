@@ -11,23 +11,24 @@
   
   <%= yield :head %>
 </head>
-	<body>
 
-		<%= render partial: "shared/header" %>		
-		<%= render partial: "shared/message" %>
+<body>
 
-		<main>
-			<div class="container">
-				<%= yield %>		
-			</div>
-		</main>
+  <%= render partial: "shared/header" %>		
+  <%= render partial: "shared/message" %>
 
-		<%= render partial: "shared/footer" %>
+  <main>
+	  <div class="container">
+		  <%= yield %>		
+    </div>
+  </main>
 
-	</body>
+  <%= render partial: "shared/footer" %>
 
-	<script>
-		$(".button-collapse").sideNav();
-		$(".dropdown-button").dropdown();
-	</script>
+</body>
+
+<script>
+  $(".button-collapse").sideNav();
+  $(".dropdown-button").dropdown();
+</script>
 </html>

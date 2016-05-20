@@ -4,12 +4,7 @@
     
     <h5>会員登録(ソーシャル連携)</h5>
 
-    <%= link_to "Googleで登録", user_omniauth_authorize_path(:google_oauth2), class: "btn red darken-1" %>
-    <br/><br/>
-    <%= link_to "Facebookで登録", user_omniauth_authorize_path(:facebook), class: "btn blue darken-4" %>
-    <br/><br/>
-    <%= link_to "Githubで登録", user_omniauth_authorize_path(:github), class: "btn grey darken-2" %>
-    <br/><br/>
+    <%= render 'devise/shared/social_links', social_devise: "登録" %>
     
     <div class="divider"></div>
     <h5>会員登録（メールアドレス登録）</h5>
