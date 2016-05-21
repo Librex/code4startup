@@ -33,6 +33,7 @@ gem 'friendly_id', '~> 5.1'
 gem 'active_admin-sortable_tree', '~> 0.2.1'
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'config'
 
 # Use Unicorn as the app server
 gem 'unicorn'

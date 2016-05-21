@@ -1,10 +1,9 @@
-class UserMailer < ApplicationMailer
-  default :from => 'code4startup@librex.co.jp'
+class UserMailer < Devise::Mailer
+  default from: Settings.admin['email']
 
   def registration_confirmation(resource)
-    @greeting = "Hi"
-
-    mail( to: resource.email, bcc: 'code4startup@librex.co.jp', subject: "#{resource.name}様、ご登録頂きありがとうございます。" )
+    @resource = resource
+    mail( to: resource.email, bcc: Settings.admin['email'], subject: "#{resource.name}様、ご登録頂きありがとうございます。" )
   end
   
 end
