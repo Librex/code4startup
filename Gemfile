@@ -52,4 +52,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
   gem 'letter_opener'
+
+  gem 'rubocop', require: false
 end
