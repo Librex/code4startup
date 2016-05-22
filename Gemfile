@@ -34,6 +34,8 @@ gem 'active_admin-sortable_tree', '~> 0.2.1'
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
+gem 'aws-sdk', '< 2.0'
+
 # Use Unicorn as the app server
 gem 'unicorn'
 gem 'unicorn-worker-killer'
