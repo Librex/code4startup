@@ -14,10 +14,10 @@ class Project < ActiveRecord::Base
 	validates :price, presence: true, numericality: { only_integer: true }
 
 	has_attached_file :image,
-	  :styles => { :medium => "680x300>", :thumb => "170x75>" },
-	  :storage => :s3,
-	  :s3_credentials => "#{Rails.root}/config/s3.yml",
-		:path =>  ":attachment/:id/:style.:extension"
+	  styles: { :medium => "680x300>", :thumb => "170x75>" },
+	  storage: :s3,
+		path: ":attachment/:id/:style.:extension",
+    s3_credentials: "#{Rails.root}/config/s3.yml"
 
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
