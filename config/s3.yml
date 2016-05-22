@@ -1,0 +1,10 @@
+production:
+  bucket: 'code4startup-image'
+  access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3_host_name: 's3-ap-northeast-1.amazonaws.com'
+development:
+  bucket: 'dev-code4startup-image'
+  access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3_host_name: 's3-ap-northeast-1.amazonaws.com'
