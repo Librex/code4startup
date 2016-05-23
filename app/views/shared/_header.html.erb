@@ -17,9 +17,12 @@
 	<nav class="white z-depth-2">
 		<div class="container">
 	    	<div class="nav-wrapper">
-				  <%= image_tag('code4startup.png', alt: 'logo', with: 240, height: 60, class: 'navbar-brand') %>
-				  <%= image_tag('logo.png', alt: 'logo', with: 240, height: 60, class: 'navbar-brand') %>
-
+          <%= link_to root_path, class: 'navbar-brand' do %>
+					  <div class="logo">
+							<%= image_tag('code4startup.png', alt: 'logo', with: 240, height: 60) %>
+							<%= image_tag('logo.png', alt: 'logo', with: 240, height: 60) %>
+					  </div>
+					<% end %>
 	      		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 	     		<ul class="right hide-on-med-and-down">
 	        		<li><%= link_to "プロジェクト一覧", root_path, class: "grey-text text-darken-1" %></li>
