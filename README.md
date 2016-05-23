@@ -70,3 +70,10 @@ Issue作る時に、お願いしたいことをなるべく明確にするよう
 ```
 bundle install --path vendor/bundle
 ```
+
+### RuboCopについて
+RuboCopは各ファイルのコード規約をチェックし、修正してれるツールにです。以下のように"-a"オプションの後にディレクトリを記載することでコードを修正してくれます
+
+```
+rubocop -a app/controllers
+```
