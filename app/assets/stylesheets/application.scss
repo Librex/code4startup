@@ -12,7 +12,7 @@ main {
 }
 
 .container {
-	width: 95%;
+	width: 100%;
 }
 
 .avatar-small {
@@ -25,4 +25,14 @@ main {
 
 .mask {
 	z-index: 99;
+}
+
+
+.intro {
+    padding: 144px 0;
+    background: image-url("slide.jpg") no-repeat center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
