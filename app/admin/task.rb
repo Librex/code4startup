@@ -10,7 +10,7 @@ ActiveAdmin.register Task do
 		actions
 	end
 
-	index do 
+	index do
 		selectable_column
 		column :header
 		column :title
@@ -19,9 +19,10 @@ ActiveAdmin.register Task do
 
 		actions
 	end
-	
+
 	form do |f|
 		f.inputs do
+			input :tag, label: "Tag"
 			input :project, label: "Project"
 			input :title, label: "Title"
 			input :note, label: "Note"
