@@ -17,7 +17,12 @@ class Project < ActiveRecord::Base
 	  styles: { :medium => "680x300>", :thumb => "170x75>" },
 	  storage: :s3,
 		path: ":attachment/:id/:style.:extension",
-    s3_credentials: "#{Rails.root}/config/s3.yml"
+    s3_credentials: {
+			access_key_id: Settings.aws.access_key,
+			secret_access_key: Settings.aws.secret,
+			bucket: Settings.aws.s3.bucket,
+		  s3_host_name: Settings.aws.s3.endpoint
+		}
 
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
