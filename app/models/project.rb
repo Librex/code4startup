@@ -18,8 +18,8 @@ class Project < ActiveRecord::Base
 	  storage: :s3,
 		path: ":attachment/:id/:style.:extension",
     s3_credentials: {
-			access_key_id: Settings.aws.access_key,
-			secret_access_key: Settings.aws.secret,
+			access_key_id: ENV['AWS_ACCESS_KEY'],
+			secret_access_key: ENV['SECRET_ACCESS_KEY'],
 			bucket: Settings.aws.s3.bucket,
 		  s3_host_name: Settings.aws.s3.endpoint
 		}
