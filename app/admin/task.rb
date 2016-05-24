@@ -22,12 +22,12 @@ ActiveAdmin.register Task do
 
 	form do |f|
 		f.inputs do
-			input :tag, label: "Tag"
 			input :project, label: "Project"
 			input :title, label: "Title"
 			input :note, label: "Note"
 			input :video, label: "video"
 			input :header, label: "Header"
+			input :tag, label: "Tag"
 		end
 
 		actions
