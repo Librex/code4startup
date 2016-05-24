@@ -27,11 +27,11 @@
 		<%= link_to project do %>
 			<div class="col s12 m6 l4">
 				<div class="card">
-					
+
 					<div class="card-image">
 						<%= image_tag project.image %>
 					</div>
-					
+
 					<div class="card-content" style="height: 6em">
 						<span class="card-title grey-text text-darken-4">
 							<%= project.shortname %>
@@ -88,24 +88,24 @@
 
 <div class="container grey lighten-1">
 	<div class="row">
-		
+
 			<div class="col s6 center">
-				<img src="/assets/intro.png">
+				<%= image_tag('intro.png') %>
 			</div>
 			<div class="col s6">
 				<h5>Code4Startupとは</h5>
 				<p>
 				Code4Startupは、オーストラリア発のスタートアップです。
 				</p>
-				
+
 				<p>
 				オリジナルサイト：https://code4startup.com
 				</p>
-				
+
 				<p>
 				Code4Startup-JPは、Code4Startupと提携をし、動画教材の字幕、吹き替えを行います。更に、独自コンテンツを動画教材として配信します。
 				</p>
-							
+
 			<div class="row">
 				<div class="center white-text">
 					<%= link_to "会員登録（無料）をする", new_user_registration_path, class: "btn-large orange cloud_get_started waves-effect waves-light white-text" %>
