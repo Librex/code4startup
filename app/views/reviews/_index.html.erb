@@ -12,21 +12,21 @@
 
 		<div class="col m10">
 			<div>
-				<strong><%= r.user.name %></strong>				
-				<span class="right"><%= timeago(r.created_at) %></span>	
+				<strong><%= r.user.name %></strong>
+				<span class="right"><%= timeago(r.created_at) %></span>
 			</div>
 			<div id="stars_<%= r.id %>"></div>
 			<div><%= r.comment %></div>
 			<div>
 				<%= link_to "Remove", [@project, r], method: :delete, data: {confirm: "Are you sure?"} if current_user && current_user.id == r.user.id %>
 			</div>
-			
+
 		</div>
 	</div>
 
 	<script>
 		$('#stars_<%= r.id %>').raty({
-			path: '/assets',
+			path: '/images',
 			readOnly: true,
 			score: <%= r.star %>
 		});
