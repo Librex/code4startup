@@ -61,6 +61,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    annotate (2.7.1)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.3)
@@ -324,6 +327,7 @@ DEPENDENCIES
   active_admin-sortable_tree (~> 0.2.1)
   active_skin
   activeadmin!
+  annotate
   aws-sdk (< 2.0)
   byebug
   capistrano (= 3.4.0)

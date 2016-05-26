@@ -58,4 +58,5 @@ group :development do
 
   gem "rails-erd"
   gem 'pry-rails'
+  gem 'annotate'
 end
