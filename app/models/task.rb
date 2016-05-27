@@ -3,15 +3,24 @@
 # Table name: tasks
 #
 #  id         :integer          not null, primary key
-#  title      :string
-#  note       :text
-#  video      :string
+#  title      :string           not null
+#  note       :text             not null
+#  video      :string           not null
 #  header     :boolean          default(FALSE), not null
-#  tag        :string
-#  project_id :integer
+#  tag        :string           not null
+#  project_id :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  slug       :string
+#  slug       :string           not null
+#
+# Indexes
+#
+#  index_tasks_on_project_id  (project_id)
+#  index_tasks_on_slug        (slug) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_02e851e3b7  (project_id => projects.id)
 #
 
 class Task < ActiveRecord::Base
