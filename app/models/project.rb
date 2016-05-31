@@ -31,6 +31,8 @@ class Project < ActiveRecord::Base
 	has_many :users, through: :subscriptions
 
 	has_many :reviews
+	
+	acts_as_paranoid
 
 	validates :name, presence: true, length: { maximum: 50 }
 	validates :content, presence: true, length: { maximum: 500 }
