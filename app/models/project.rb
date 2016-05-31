@@ -13,6 +13,12 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  slug               :string
+#  deleted_at         :datetime
+#
+# Indexes
+#
+#  index_projects_on_deleted_at  (deleted_at)
+#  index_projects_on_slug        (slug) UNIQUE
 #
 
 class Project < ActiveRecord::Base

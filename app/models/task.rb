@@ -13,6 +13,15 @@
 #  updated_at :datetime         not null
 #  slug       :string
 #
+# Indexes
+#
+#  index_tasks_on_project_id  (project_id)
+#  index_tasks_on_slug        (slug) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_02e851e3b7  (project_id => projects.id)
+#
 
 class Task < ActiveRecord::Base
 	extend FriendlyId
