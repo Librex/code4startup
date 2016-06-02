@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
 	has_many :subscriptions
 	has_many :users, through: :subscriptions
 
-	has_many :reviews
+	has_many :reviews, dependent: :destroy
 	
 	acts_as_paranoid
 
