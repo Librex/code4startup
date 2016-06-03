@@ -3,12 +3,22 @@
 # Table name: reviews
 #
 #  id         :integer          not null, primary key
-#  project_id :integer
-#  user_id    :integer
-#  comment    :text
+#  project_id :integer          not null
+#  user_id    :integer          not null
+#  comment    :text             not null
 #  created_at :datetime         not null
-#  star       :integer
+#  star       :integer          not null
 #  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_reviews_on_project_id  (project_id)
+#  index_reviews_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_64798be025  (project_id => projects.id)
+#  fk_rails_74a66bd6c5  (user_id => users.id)
 #
 
 class Review < ActiveRecord::Base

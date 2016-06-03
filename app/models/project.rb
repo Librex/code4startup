@@ -3,16 +3,20 @@
 # Table name: projects
 #
 #  id                 :integer          not null, primary key
-#  name               :string
-#  content            :text
-#  price              :integer
+#  name               :string           not null
+#  content            :text             not null
+#  price              :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  image_file_name    :string
-#  image_content_type :string
-#  image_file_size    :integer
-#  image_updated_at   :datetime
-#  slug               :string
+#  image_file_name    :string           not null
+#  image_content_type :string           not null
+#  image_file_size    :integer          not null
+#  image_updated_at   :datetime         not null
+#  slug               :string           not null
+#
+# Indexes
+#
+#  index_projects_on_slug  (slug) UNIQUE
 #
 
 class Project < ActiveRecord::Base
