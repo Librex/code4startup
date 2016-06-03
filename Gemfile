@@ -58,7 +58,7 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
   gem 'letter_opener'
-
+  gem 'rubocop', require: false
   gem "rails-erd"
   gem 'pry-rails'
   gem 'annotate'
