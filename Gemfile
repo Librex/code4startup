@@ -33,6 +33,9 @@ gem 'friendly_id', '~> 5.1'
 gem 'active_admin-sortable_tree', '~> 0.2.1'
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'config'
+
+gem 'aws-sdk', '< 2.0'
 
 # Use Unicorn as the app server
 gem 'unicorn'
@@ -52,6 +55,8 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
   gem 'letter_opener'
-
   gem 'rubocop', require: false
+  gem "rails-erd"
+  gem 'pry-rails'
+  gem 'annotate'
 end

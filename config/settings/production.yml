@@ -1,0 +1,6 @@
+aws:
+  access_key: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3:
+    endpoint: s3-ap-northeast-1.amazonaws.com
+    bucket: code4startup-image
