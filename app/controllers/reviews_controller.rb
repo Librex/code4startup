@@ -1,22 +1,22 @@
 class ReviewsController < ApplicationController
+  def create
+    @review = Review.create(review_params)
+    project = @review.project
 
-	def create
-		@review = Review.create(review_params)
-		project = @review.project
+    redirect_to project
+  end
 
-		redirect_to project
-	end
+  def destroy
+    @review = Review.find(params[:id])
+    project = @review.project
+    @review.destroy
 
-	def destroy
-		@review = Review.find(params[:id])
-		project = @review.project
-		@review.destroy
+    redirect_to project
+  end
 
-		redirect_to project
-	end
+  private
 
-	private
-		def review_params
-			params.require(:review).permit(:star, :comment, :project_id, :user_id)
-		end
+  def review_params
+    params.require(:review).permit(:star, :comment, :project_id, :user_id)
+    end
 end

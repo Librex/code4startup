@@ -16,6 +16,7 @@
 #
 
 class Project < ActiveRecord::Base
+
 	extend FriendlyId
 	friendly_id :name, use: [:slugged, :finders]
 
@@ -44,10 +45,10 @@ class Project < ActiveRecord::Base
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   def shortname
-  	name.length > 25? name[0..25] + "..." : name
+    name.length > 25 ? name[0..25] + '...' : name
   end
 
   def average_rating
-  	reviews.blank? ? 0 : reviews.average(:star).round(2)
+    reviews.blank? ? 0 : reviews.average(:star).round(2)
   end
 end
