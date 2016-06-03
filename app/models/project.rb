@@ -13,6 +13,12 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  slug               :string
+#  deleted_at         :datetime
+#
+# Indexes
+#
+#  index_projects_on_deleted_at  (deleted_at)
+#  index_projects_on_slug        (slug) UNIQUE
 #
 
 class Project < ActiveRecord::Base
@@ -25,7 +31,9 @@ class Project < ActiveRecord::Base
 	has_many :subscriptions
 	has_many :users, through: :subscriptions
 
-	has_many :reviews
+	has_many :reviews, dependent: :destroy
+	
+	acts_as_paranoid
 
 	validates :name, presence: true, length: { maximum: 50 }
 	validates :content, presence: true, length: { maximum: 500 }

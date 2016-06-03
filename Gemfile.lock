@@ -219,6 +219,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    paranoia (2.1.5)
+      activerecord (~> 4.0)
     parser (2.3.1.0)
       ast (~> 2.2)
     pg (0.18.4)
@@ -364,6 +366,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   paperclip (~> 4.3, >= 4.3.2)
+  paranoia
   pg
   pry-rails
   rails (= 4.2.2)
