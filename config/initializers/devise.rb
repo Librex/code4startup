@@ -18,11 +18,19 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   require 'omniauth-google-oauth2'
-  config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], {access_type: "offline", approval_prompt: ""}
-
+  if Rails.env.production?
+    config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], {access_type: "offline", approval_prompt: ""}
+  else
+    config.omniauth :google_oauth2, ENV['GOOGLE_CLIENTID'], ENV['GOOGLE_CLIENTSECRET'], {access_type: "offline", approval_prompt: ""}
+  end
+  
   require 'omniauth-facebook'
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
-
+  if Rails.env.production?
+    config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+  else
+    config.omniauth :facebook, ENV['FACEBOOK_APPID'], ENV['FACEBOOK_APPSECRET']
+  end
+  
   require 'omniauth-github'
   if Rails.env.production?
     config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: "user:email"
