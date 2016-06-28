@@ -1,0 +1,10 @@
+<!-- プランを選択する画面 -->
+<% @plans.each do |plan| %>
+  <% if plan.id == 1 %>
+    <h1><%= button_to "バリュープラン" %></h1>
+    <% else %>
+    <h1><%= button_to "無制限プラン" %></h1>
+  <% end %>
+  <%= plan.name %>
+  <%= plan.amount  %>円
+<% end %>

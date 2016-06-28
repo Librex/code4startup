@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :projects, through: :subscriptions
-
+  has_many :credit_cards
   has_many :reviews
 
   def self.find_for_google_oauth2(access_token, _signed_in_resourse = nil)
