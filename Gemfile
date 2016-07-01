@@ -43,6 +43,7 @@ gem 'unicorn-worker-killer'
 gem 'dotenv-rails'
 
 gem 'paranoia'
+gem 'webpay'
 
 group :development, :test do
   gem 'byebug'

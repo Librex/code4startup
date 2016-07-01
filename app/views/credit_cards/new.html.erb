@@ -1,8 +1,10 @@
 <%= form_for(@credit_card) do |f| %>
-  <%= f.text_field :name %>
-  <%= f.text_field :card_number %>
-  <%= f.text_field :cvc %>
-  <%= f.datetime_select :year %>
-  <%= f.datetime_select :date %>
-  <%= f.submit %>
+  <%= f.text_field :name, placeholder: "契約者名" %>
+  <%= f.text_field :card_number, placeholder: "カード番号" %>
+  <%= f.text_field :cvc, placeholder: "cvc" %>
+  <%= f.text_field :amount, value: @plan.amount %>
+  <%= f.datetime_select :year, placeholder: "年" %>
+  <%= f.datetime_select :date, placeholder: "月" %>
+  <script src="https://checkout.webpay.jp/v1/" class="webpay-button" data-key="<%= 'test_public_fvh7UPd4AfvC6825vxf8oelQ' %>" data-partial="true"></script>
+  <%= f.submit '購入' %>
 <% end %>
