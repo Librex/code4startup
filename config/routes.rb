@@ -128,7 +128,7 @@ resources :plans, only: [:new, :create, :index]
   resources :project do
     resources :reviews, only: [:create, :destroy]
   end
-  resources :credit_cards, only: [:new, :create]
+  resources :credit_cards, only: [:new, :create, :destroy]
   post 'credit_cards/:plan_id', to: 'credit_cards#new'
   resources :blogs
   # The priority is based upon order of creation: first created -> highest priority.

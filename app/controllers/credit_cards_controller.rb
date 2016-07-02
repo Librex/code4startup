@@ -37,7 +37,10 @@ class CreditCardsController < ApplicationController
     redirect_to root_path
   end
   def destroy
-
+    @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
+    current_user.credit_cards.first.delete
+    current_user.payments.first.delete
+    redirect_to root_path
   end
   private
 
