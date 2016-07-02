@@ -6,6 +6,7 @@ class CreatePayments < ActiveRecord::Migration
       t.boolean :availability
       t.integer :continuation
       t.date :expire_date
+      t.string :webpay_recursion_id, null: false
 
       t.timestamps null: false
     end

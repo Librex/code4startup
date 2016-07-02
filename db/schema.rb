@@ -57,15 +57,16 @@ ActiveRecord::Schema.define(version: 20160701104211) do
   end
 
   create_table "credit_cards", force: :cascade do |t|
-    t.string   "date",        null: false
-    t.string   "year",        null: false
-    t.string   "cc_type",     null: false
-    t.integer  "last_digits", null: false
-    t.integer  "user_id",     null: false
-    t.string   "name",        null: false
-    t.string   "token",       null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "date",               null: false
+    t.string   "year",               null: false
+    t.string   "cc_type",            null: false
+    t.integer  "last_digits",        null: false
+    t.integer  "user_id",            null: false
+    t.string   "name",               null: false
+    t.string   "token",              null: false
+    t.string   "webpay_customer_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -82,13 +83,14 @@ ActiveRecord::Schema.define(version: 20160701104211) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "user_id",       null: false
+    t.integer  "user_id",             null: false
     t.string   "purchase_date"
     t.boolean  "availability"
     t.integer  "continuation"
     t.date     "expire_date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "webpay_recursion_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "plan_users", force: :cascade do |t|
