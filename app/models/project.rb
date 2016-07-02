@@ -5,7 +5,7 @@
 #  id                 :integer          not null, primary key
 #  name               :string
 #  content            :text
-#  price              :integer
+#  free_flg           :integer          default(1)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  image_file_name    :string
@@ -32,12 +32,11 @@ class Project < ActiveRecord::Base
 	has_many :users, through: :subscriptions
 
 	has_many :reviews, dependent: :destroy
-	
+
 	acts_as_paranoid
 
 	validates :name, presence: true, length: { maximum: 50 }
 	validates :content, presence: true, length: { maximum: 500 }
-	validates :price, presence: true, numericality: { only_integer: true }
 
 	has_attached_file :image,
 	  styles: { :medium => "680x300>", :thumb => "170x75>" },

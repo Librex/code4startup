@@ -3,7 +3,7 @@ class CreateProjects < ActiveRecord::Migration
     create_table :projects do |t|
       t.string :name
       t.text :content
-      t.integer :price
+      t.integer :free_flg, default: 1
 
       t.timestamps null: false
     end

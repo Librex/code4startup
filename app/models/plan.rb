@@ -2,14 +2,16 @@
 #
 # Table name: plans
 #
-#  id           :integer          not null, primary key
-#  name         :string
-#  amount       :integer
-#  complete_flg :boolean
-#  student_flg  :boolean
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id         :integer          not null, primary key
+#  name       :string
+#  amount     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Plan < ActiveRecord::Base
+  has_many :plan_users
+  has_many :users, through: :plan_users
+  after_create :create_payment, :create_plan_user
+
 end

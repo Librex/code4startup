@@ -19,6 +19,7 @@
 #  provider               :string
 #  uid                    :string
 #  image                  :string
+#  student_flg            :boolean
 #
 # Indexes
 #
@@ -39,6 +40,9 @@ class User < ActiveRecord::Base
   has_many :projects, through: :subscriptions
   has_many :credit_cards
   has_many :reviews
+  has_many :payments
+  has_many :plans, through: :plan_users
+  has_many :plan_users
 
   def self.find_for_google_oauth2(access_token, _signed_in_resourse = nil)
     data = access_token.info

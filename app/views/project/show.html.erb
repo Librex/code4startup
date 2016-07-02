@@ -79,7 +79,7 @@
 			<% if !@joined %>
 
 				<div class="center">
-					<h1><%= @project.price == 0? "Free" : "$#{@project.price}" %></h1>
+					<h1><%= @project.free_flg == 1? "Free" : "Get Started!" %></h1>
 				</div>
 				<div class="card-action center">
 					<% if user_signed_in? %>

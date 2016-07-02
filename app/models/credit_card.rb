@@ -15,6 +15,7 @@
 #
 
 class CreditCard < ActiveRecord::Base
+  # after_create :create_payment, :create_plan_user
   attr_accessor :card_number, :card_number, :cvc, :amount
   belongs_to :user
 end

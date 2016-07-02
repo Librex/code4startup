@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628081344) do
+ActiveRecord::Schema.define(version: 20160701104211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,21 +81,37 @@ ActiveRecord::Schema.define(version: 20160628081344) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "user_id",       null: false
+    t.string   "purchase_date"
+    t.boolean  "availability"
+    t.integer  "continuation"
+    t.date     "expire_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "plan_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "plan_id"
+    t.integer  "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.integer  "amount"
-    t.boolean  "complete_flg"
-    t.boolean  "student_flg"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "content"
-    t.integer  "price"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "free_flg",           default: 1
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -162,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160628081344) do
     t.string   "provider"
     t.string   "uid"
     t.string   "image"
+    t.boolean  "student_flg"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
