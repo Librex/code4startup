@@ -18,4 +18,7 @@
 class CreditCard < ActiveRecord::Base
   attr_accessor :card_number, :card_number, :cvc, :amount
   belongs_to :user
+  def webpay_customer
+
+  end
 end

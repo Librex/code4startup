@@ -35,6 +35,8 @@ class Project < ActiveRecord::Base
 
 	acts_as_paranoid
 
+	scope :free_projects, -> { projects.where(free_flg: 1) }
+
 	validates :name, presence: true, length: { maximum: 50 }
 	validates :content, presence: true, length: { maximum: 500 }
 

@@ -3,6 +3,7 @@
 <div class="row" data-no-turbolink>
 <br/>
 	<% if @projects.count > 0 %>
+	<%= button_to "課金やめる", credit_card_path(current_user.credit_cards.first.id), method: :delete if current_user.payments.present? %>
 		<% @projects.each do |project| %>
 			<%= link_to project do %>
 				<div class="col s12 m6 l4">
@@ -24,6 +25,5 @@
 			<h5>受講中のプロジェクトはありません。</h5>
 			<%= link_to "Show me all Projects", root_path, class: "btn btn-primary" %>
 		</div>
-		<%= button_to "課金やめる", credit_card_path(current_user.credit_cards.first.id), method: :delete %>
 	<% end %>
 </div>

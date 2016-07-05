@@ -7,6 +7,7 @@ class ProjectController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    session[:project_id] = @project.id
     @tasks = @project.tasks.order(:tag)
 
     @joined = false
@@ -25,5 +26,8 @@ class ProjectController < ApplicationController
 
   def list
     @projects = current_user.projects unless current_user.nil?
+    if current_user.payments.blank?
+      @projects = @projects.where(free_flg: 1)
+    end
   end
 end
