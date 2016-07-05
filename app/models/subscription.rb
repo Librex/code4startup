@@ -23,4 +23,9 @@
 class Subscription < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
+
+  def self.create_subscription(session, current_user)
+    self.create(project_id: session, user_id: current_user.id)
+    session = nil
+  end
 end

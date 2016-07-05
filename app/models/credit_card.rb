@@ -18,7 +18,28 @@
 class CreditCard < ActiveRecord::Base
   attr_accessor :card_number, :card_number, :cvc, :amount
   belongs_to :user
-  def webpay_customer
 
+  def self.create_credit_card(current_user,user, params_token)
+    credit_card = self.new(
+      user_id: current_user.id,
+      date: user.active_card.exp_month,
+      year: user.active_card.exp_year,
+      cc_type: user.active_card.type,
+      last_digits: user.active_card.last4,
+      name: user.active_card.name,
+      token: params_token,
+      webpay_customer_id: user.id
+    )
+    credit_card.save
+  end
+
+  def self.webpay_customer_create(credit_params, user, webpay)
+    recursion = webpay.recursion.create(
+     amount: credit_params,
+     currency: "jpy",
+     customer: user.id,
+     period: :month,
+     description: "定期購読料"
+     )
   end
 end
