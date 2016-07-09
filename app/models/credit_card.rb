@@ -42,4 +42,15 @@ class CreditCard < ActiveRecord::Base
      description: "定期購読料"
      )
   end
+  def self.recursion_create(params_type)
+    if params_type == "recursion.succeeded"
+      # 決済成功のメールを送る
+    end
+  end
+  def self.recursion_failed
+    if params_type == "recursion.failed"
+      availability = false
+      # カードが有効ではないとメールを送る
+    end
+  end
 end

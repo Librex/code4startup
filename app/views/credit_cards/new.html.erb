@@ -1,4 +1,4 @@
-<%= form_for(@credit_card) do |f| %>
+<%= form_for(@credit_card, url: webhook_path) do |f| %>
   <%= f.text_field :name, placeholder: "契約者名" %>
   <%= f.text_field :card_number, placeholder: "カード番号" %>
   <%= f.text_field :cvc, placeholder: "cvc" %>

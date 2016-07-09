@@ -6,3 +6,4 @@ aws:
     bucket: dev-code4startup-image
 webpay:
   access_key: test_secret_c6E5NG65v0t64FE0N132RbkC
+  credential: hookcred_1dzacoalqfw61Sh6GXcBHa1b4eO2k0cwm5Zr

@@ -1,6 +1,11 @@
 class CreditCardsController < ApplicationController
   before_action :set_webpay, only: [:create, :destroy]
   before_action :check_plan_user, only: [:create]
+  protect_from_forgery except: :create
+
+  def index
+    redirect_to root_path
+  end
 
   def new
     # params[:format]でプランのidが入ってい
@@ -9,6 +14,7 @@ class CreditCardsController < ApplicationController
   end
 
   def create
+    binding.pry
     # @user = @webpay.charge.create(amount: credit_params["amount"].to_i, currency: "jpy", card: params['webpay-token'])
     # 顧客登録
     @user = @webpay.customer.create(card: params["webpay-token"])
@@ -32,6 +38,9 @@ class CreditCardsController < ApplicationController
   private
 
   def check_plan_user
+    return 400 if env["HTTP_X_WEBPAY_ORIGIN_CREDENTIAL"] != Settings.webpay.credential
+    event = JSON.parse(request.body.read)
+    binding.pry
     if current_user.plan_users.present?
       if current_user.plan_users.first.plan_id == 1
         @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
