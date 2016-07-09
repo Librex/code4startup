@@ -14,8 +14,6 @@ class CreditCardsController < ApplicationController
   end
 
   def create
-    binding.pry
-    # @user = @webpay.charge.create(amount: credit_params["amount"].to_i, currency: "jpy", card: params['webpay-token'])
     # 顧客登録
     @user = @webpay.customer.create(card: params["webpay-token"])
     # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
@@ -38,9 +36,13 @@ class CreditCardsController < ApplicationController
   private
 
   def check_plan_user
-    return 400 if env["HTTP_X_WEBPAY_ORIGIN_CREDENTIAL"] != Settings.webpay.credential
-    event = JSON.parse(request.body.read)
-    binding.pry
+    if params[:type] == "recursion.failed"
+      payments = current_user.payments.first
+      payments.availability = false
+      payments.save
+      return redirect_to root_path
+    end
+    # return 400 if env["HTTP_X_WEBPAY_ORIGIN_CREDENTIAL"] != Settings.webpay.credential
     if current_user.plan_users.present?
       if current_user.plan_users.first.plan_id == 1
         @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
@@ -51,9 +53,9 @@ class CreditCardsController < ApplicationController
         Payment.create_payment(recursion, current_user)
         PlanUser.update_plan_user(current_user)
         Subscription.create_subscription(session[:project_id], current_user)
+        session[:project_id] = nil
+        return redirect_to root_path
       end
-      session[:project_id] = nil
-      return redirect_to root_path
     end
   end
 
