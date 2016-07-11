@@ -15,10 +15,10 @@ class CreditCardsController < ApplicationController
 
   def create
     # 顧客登録
-    @user = @webpay.customer.create(card: params["webpay-token"])
+    @user = @webpay.customer.create(card: params['webpay-token'])
     # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
-    recursion = CreditCard.webpay_customer_create(credit_params["amount"], @user, @webpay)
-    CreditCard.create_credit_card(current_user, @user, params["webpay-token"])
+    recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
+    CreditCard.create_credit_card(current_user, @user, params['webpay-token'])
     # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
     PlanUser.create_plan_user(params[:credit_card][:amount], current_user)
     Subscription.create_subscription(session[:project_id], current_user)
@@ -36,14 +36,14 @@ class CreditCardsController < ApplicationController
   private
 
   def check_plan_user
-    if params[:type] == "recursion.failed"
+    if params[:type] == 'recursion.failed'
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
       payment = Payment.find_by(user_id: credit_card.user_id)
       payment.availability = false
       payment.save
     end
-    if params[:type] == "recursion.succeeded"
-       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
+    if params[:type] == 'recursion.succeeded'
+      credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
        Subscription.create_subscription(1, credit_card) if Subscription.where(user_id: credit_card.user_id).count >= 1
        plan_user = PlanUser.find_by(user_id: credit_card.user_id)
        plan_user.count += 1 if plan_user.plan_id == 1
@@ -55,9 +55,9 @@ class CreditCardsController < ApplicationController
       if current_user.plan_users.first.plan_id == 1
         @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
         current_user.payments.first.delete
-        @user = @webpay.customer.retrieve("#{user}")
-        recursion = CreditCard.webpay_customer_create(credit_params["amount"], @user, @webpay)
-        CreditCard.create_credit_card(current_user, @user, params["webpay-token"])
+        @user = @webpay.customer.retrieve(user.to_s)
+        recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
+        CreditCard.create_credit_card(current_user, @user, params['webpay-token'])
         Payment.create_payment(recursion, current_user)
         PlanUser.update_plan_user(current_user)
         Subscription.create_subscription(session[:project_id], current_user)

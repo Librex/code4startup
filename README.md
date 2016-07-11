@@ -76,4 +76,15 @@ RuboCopは各ファイルのコード規約をチェックし、修正してれ�
 
 ```
 rubocop -a app/controllers
+```  
+### テストデータについて  
+planを挿入できます。  
+
 ```
+bundle exec rake plan:create  
+```
+### webpayのテストについて  
+http://liginc.co.jp/web/programming/156484  
+こちらでローカルでwebpayのテストができます  
+https://webpay.jp/docs/mock_cards  
+テスト環境で使えるクレジットカードの情報  
