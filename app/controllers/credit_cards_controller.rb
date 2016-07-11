@@ -37,17 +37,25 @@ class CreditCardsController < ApplicationController
 
   def check_plan_user
     if params[:type] == "recursion.failed"
-      payments = current_user.payments.first
-      payments.availability = false
-      payments.save
-      return redirect_to root_path
+      credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
+      payment = Payment.find_by(user_id: credit_card.user_id)
+      payment.availability = false
+      payment.save
+    end
+    if params[:type] == "recursion.succeeded"
+       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
+       Subscription.create_subscription(1, credit_card) if Subscription.where(user_id: credit_card.user_id).count >= 1
+       plan_user = PlanUser.find_by(user_id: credit_card.user_id)
+       plan_user.count += 1 if plan_user.plan_id == 1
+       plan_user.save
     end
     # return 400 if env["HTTP_X_WEBPAY_ORIGIN_CREDENTIAL"] != Settings.webpay.credential
     if current_user.plan_users.present?
+      user = current_user.credit_cards.first.webpay_customer_id
       if current_user.plan_users.first.plan_id == 1
         @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
         current_user.payments.first.delete
-        @user = @webpay.customer.create(card: params["webpay-token"])
+        @user = @webpay.customer.retrieve("#{user}")
         recursion = CreditCard.webpay_customer_create(credit_params["amount"], @user, @webpay)
         CreditCard.create_credit_card(current_user, @user, params["webpay-token"])
         Payment.create_payment(recursion, current_user)
