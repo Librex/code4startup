@@ -71,32 +71,10 @@
 		</div>
 	</div>
 
-	<div class="col m4">
-		<div class="card z-depth-2">
-			<% if !@joined %>
-			<div class="card-action center">
-				<% if user_signed_in? %>
-				<div class="center">
-					<h1><% if @project.free_flg == 1 %></h1>
 
-					  <h1>free</h1>
-							<%= form_tag free_path do %>
-								<%= hidden_field_tag 'project_id', @project.id %>
-								<button type="submit" class="btn orange">このプロジェクトを受講する</button>
-							<% end %>
 
-					    <% elsif @project.free_flg == 2 %>
-						<h1>Get,Started</h1>
-					<%= link_to "このプロジェクトを受講する", plans_path, project_id: @project.id %>
-				<% end %>
-			<% end %>
-				</div>
-			</div>
-
-			<% elsif @project.free_flg == 2 %>
-			<h1>Get,Started</h1>
-		<%= link_to "このプロジェクトを受講する", plans_path, project_id: @project.id %>
-		  <% current_user.payments.present? %>
+			<% if @project.subscriptions.where(user_id: current_user.id).any? %>
+			<h1>受講中</h1>
 				<div class="card-content center">
 					<%= image_tag avatar_url(current_user), class: "circle responsive-img avatar-medium" %><br/>
 					<h5><%= current_user.name %></h5>
@@ -109,7 +87,30 @@
 						</span><br/>
 					<% end %>
 				</div>
+        <% else %>
+				<div class="col m4">
+					<div class="card z-depth-2">
+						<% if !@joined %>
+						<div class="card-action center">
+							<% if user_signed_in? %>
+							<div class="center">
 
+								<h1><% if @project.free_flg == 1 %></h1>
+								  <h1>free</h1>
+										<%= form_tag free_path do %>
+											<%= hidden_field_tag 'project_id', @project.id %>
+											<button type="submit" class="btn orange">このプロジェクトを受講する</button>
+										<% end %>
+
+								    <% elsif @project.free_flg == 2 %>
+									<h1>Get,Started</h1>
+								<%= link_to "このプロジェクトを受講する", plans_path, project_id: @project.id %>
+							<% end %>
+						<% end %>
+							</div>
+						</div>
+
+			<% end %>
 			<% end %>
 
 		</div>

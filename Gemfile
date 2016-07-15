@@ -54,6 +54,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'spring-commands-rspec'
+  gem 'webpay-mock'
 end
 
 group :development do

@@ -1,13 +1,11 @@
 class PlansController < ApplicationController
   def index
-    check = current_user.plan_users.first
-    if check.nil? || check.plan_id == 1 && check.count == 0
+    check = current_user.payments.last
+    if check.nil?
       @plans = Plan.all
-    elsif check.plan_id == 1 && check.count > 0
-      current_user.plan_users.first.count -= 1
-      redirect_to project_path(session[:project_id])
-      session[:project_id] = nil
-    elsif check.plan_id == 2
+    elsif check.amount == 1000
+      @plans = Plan.all_showing_user
+    elsif check.amount == 2000
       current_user.subscriptions.create(project_id: session[:project_id])
       redirect_to project_path(session[:project_id])
       session[:project_id] = nil

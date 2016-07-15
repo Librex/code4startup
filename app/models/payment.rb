@@ -4,19 +4,25 @@
 #
 #  id                  :integer          not null, primary key
 #  user_id             :integer          not null
-#  purchase_date       :string
-#  availability        :boolean
-#  continuation        :integer
-#  expire_date         :date
+#  error_log           :text
+#  status              :integer          not null
 #  webpay_recursion_id :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  deleted_at          :datetime
+#  amount              :integer
+#
+# Indexes
+#
+#  index_payments_on_deleted_at  (deleted_at)
 #
 
 class Payment < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :user
   belongs_to :plan
-  def self.create_payment(recursion, current_user)
-    self.create(availability: true, webpay_recursion_id: recursion.id, user_id: current_user.id)
+  enum status: { availability: 0, unavailable: 1 }
+  def self.create_payment(recursion, current_user, amount)
+    self.create(webpay_recursion_id: recursion.id, user_id: current_user.id, status: 0, amount: amount)
   end
 end

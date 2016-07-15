@@ -9,16 +9,21 @@
 #  last_digits        :integer          not null
 #  user_id            :integer          not null
 #  name               :string           not null
-#  token              :string           not null
 #  webpay_customer_id :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  deleted_at         :datetime
+#
+# Indexes
+#
+#  index_credit_cards_on_deleted_at  (deleted_at)
 #
 
 class CreditCard < ActiveRecord::Base
   attr_accessor :card_number, :card_number, :cvc, :amount
+  acts_as_paranoid
   belongs_to :user
-  def self.create_credit_card(current_user,user, params_token)
+  def self.create_credit_card(current_user, user)
     credit_card = self.new(
       user_id: current_user.id,
       date: user.active_card.exp_month,
@@ -26,7 +31,6 @@ class CreditCard < ActiveRecord::Base
       cc_type: user.active_card.type,
       last_digits: user.active_card.last4,
       name: user.active_card.name,
-      token: params_token,
       webpay_customer_id: user.id
     )
     credit_card.save

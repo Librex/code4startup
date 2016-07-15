@@ -7,7 +7,6 @@ class CreateCreditCards < ActiveRecord::Migration
       t.integer :last_digits, null: false
       t.integer :user_id, null: false
       t.string :name, null: false
-      t.string :token, null: false
       t.string :webpay_customer_id, null: false
       t.timestamps null: false
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701104211) do
+ActiveRecord::Schema.define(version: 20160713071428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,11 +63,13 @@ ActiveRecord::Schema.define(version: 20160701104211) do
     t.integer  "last_digits",        null: false
     t.integer  "user_id",            null: false
     t.string   "name",               null: false
-    t.string   "token",              null: false
     t.string   "webpay_customer_id", null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.datetime "deleted_at"
   end
+
+  add_index "credit_cards", ["deleted_at"], name: "index_credit_cards_on_deleted_at", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -84,22 +86,16 @@ ActiveRecord::Schema.define(version: 20160701104211) do
 
   create_table "payments", force: :cascade do |t|
     t.integer  "user_id",             null: false
-    t.string   "purchase_date"
-    t.boolean  "availability"
-    t.integer  "continuation"
-    t.date     "expire_date"
+    t.text     "error_log"
+    t.integer  "status",              null: false
     t.string   "webpay_recursion_id", null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.datetime "deleted_at"
+    t.integer  "amount"
   end
 
-  create_table "plan_users", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "plan_id"
-    t.integer  "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "payments", ["deleted_at"], name: "index_payments_on_deleted_at", using: :btree
 
   create_table "plans", force: :cascade do |t|
     t.string   "name"
@@ -142,8 +138,10 @@ ActiveRecord::Schema.define(version: 20160701104211) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "subscriptions", ["deleted_at"], name: "index_subscriptions_on_deleted_at", using: :btree
   add_index "subscriptions", ["project_id"], name: "index_subscriptions_on_project_id", using: :btree
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
@@ -161,6 +159,13 @@ ActiveRecord::Schema.define(version: 20160701104211) do
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
   add_index "tasks", ["slug"], name: "index_tasks_on_slug", unique: true, using: :btree
+
+  create_table "user_plans", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "plan_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

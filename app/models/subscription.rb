@@ -7,9 +7,11 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  deleted_at :datetime
 #
 # Indexes
 #
+#  index_subscriptions_on_deleted_at  (deleted_at)
 #  index_subscriptions_on_project_id  (project_id)
 #  index_subscriptions_on_user_id     (user_id)
 #
@@ -20,6 +22,7 @@
 #
 
 class Subscription < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :project
   belongs_to :user
 

@@ -20,13 +20,12 @@ class ProjectController < ApplicationController
 
     @review = Review.new
     @reviews = @project.reviews
-
     @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def list
     @projects = current_user.projects unless current_user.nil?
-    if current_user.payments.blank?
+    if current_user.payments.blank? || current_user.payments.last.try(:status) == 1
       @projects = @projects.where(free_flg: 1)
     end
   end
