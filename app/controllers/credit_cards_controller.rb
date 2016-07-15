@@ -18,12 +18,12 @@ class CreditCardsController < ApplicationController
     @user = @webpay.customer.create(card: params['webpay-token'])
     # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
     recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
-    CreditCard.create_credit_card(current_user, @user)
+    a = CreditCard.create_credit_card(current_user, @user)
     # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
-    UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
-    Subscription.create_subscription(session[:project_id], current_user)
+    b =UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
+    c = Subscription.create_subscription(session[:project_id], current_user)
     # クレジットカードが登録された後に支払い方法が登録される
-    Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
+    d = Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
     redirect_to root_path
   end
 
@@ -53,27 +53,6 @@ class CreditCardsController < ApplicationController
     end
     200
     redirect_to root_path
-    # return 400 if env["HTTP_X_WEBPAY_ORIGIN_CREDENTIAL"] != Settings.webpay.credential
-    # ログインユーザに紐づく中間テーブルが存在するか確認
-    # 最後に登録したクレジットカード情報のお客さんidを取得
-    # plan_idが1だったら処理を実行
-    # 最後に支払いしたものが1かつ今回選択されたものが2ならグレードアップ
-    # 1の人が追加課金で購入はできない
-    # if current_user.user_plans.present?
-    #   user = current_user.credit_cards.last.webpay_customer_id
-    #   if current_user.user_plans.first.plan_id == 1
-    #     @webpay.recursion.delete(id: current_user.payments.last.webpay_recursion_id)
-    #     current_user.payments.last.destroy
-    #     @user = @webpay.customer.retrieve(user.to_s)
-    #     recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
-    #     CreditCard.create_credit_card(current_user, @user)
-    #     Payment.create_payment(recursion, current_user, credit_params['amount'])
-    #     UserPlan.update_user_plan(current_user)
-    #     Subscription.create_subscription(session[:project_id], current_user)
-    #     session[:project_id] = nil
-    #     return redirect_to root_path
-    #   end
-    # end
   end
 
   def credit_params

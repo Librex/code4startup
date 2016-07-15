@@ -60,4 +60,7 @@ class Project < ActiveRecord::Base
   def average_rating
     reviews.blank? ? 0 : reviews.average(:star).round(2)
   end
+	def self.looking_count(current_user)
+    current_user.payments.where(status: 0).count - current_user.subscriptions.count - 1
+	end
 end

@@ -132,6 +132,7 @@ resources :plans, only: [:new, :create, :index]
   post 'credit_cards/:plan_id', to: 'credit_cards#new'
   resources :blogs
   post '/webhook', to: 'credit_cards#create'
+  resource :subscriptions, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
