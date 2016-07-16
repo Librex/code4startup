@@ -45,10 +45,10 @@ class User < ActiveRecord::Base
   has_many :user_plans
 
   def self.delete_dependent(current_user)
-    current_user.credit_cards.first.delete
-    current_user.user_plans.first.delete
-    current_user.payments.first.delete
-    current_user.subscriptions.delete_all
+    CreditCard.where(user_id: current_user.id).delete_all
+    UserPlan.where(user_id: current_user.id).delete_all
+    Payment.where(user_id: current_user.id).delete_all
+    Subscription.where(user_id: current_user.id).delete_all
   end
 
   def self.find_for_google_oauth2(access_token, _signed_in_resourse = nil)
