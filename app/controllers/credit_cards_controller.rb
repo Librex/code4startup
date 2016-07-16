@@ -1,5 +1,5 @@
 class CreditCardsController < ApplicationController
-  before_action :set_webpay, only: [:create, :destroy]
+  before_action :set_webpay, only: [:create, :destroy, :retry]
   before_action :check_plan_user, only: [:create]
   protect_from_forgery except: :create
 
@@ -37,6 +37,26 @@ class CreditCardsController < ApplicationController
     redirect_to root_path
   end
 
+  def retry
+    begin
+      result = @webpay.recursion.retrieve(current_user.payments.last.webpay_recursion_id)
+      if result.status == "closed"
+        payment = current_user.payments.last.dup
+        payment.status = 2
+        payment.save
+        # Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
+        redirect_to myprojects_path
+      else
+        @webpay.recursion.resume(id: current_user.payments.last.webpay_recursion_id)
+        redirect_to myprojects_path
+      end
+    rescue => e
+      logger.error e
+      flash.notice = "なんらかのエラーが出たよ"
+      redirect_to myprojects_path
+    end
+  end
+
   private
 
   def check_plan_user
@@ -48,7 +68,13 @@ class CreditCardsController < ApplicationController
     # charge.failed
     if params[:type] == 'recursion.failed'
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
-      Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
+      if params[:data][:object][:status] == "suspended"
+        Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
+      end
+      if params[:data][:object][:status] == "closed"
+        Payment.create(user_id: credit_card.user_id, status: 2, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
+      end
+
     end
 
     if params[:type] == 'recursion.succeeded'

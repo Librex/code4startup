@@ -130,6 +130,7 @@ resources :plans, only: [:new, :create, :index]
   end
   resources :credit_cards, only: [:new, :destroy]
   post 'credit_cards/:plan_id', to: 'credit_cards#new'
+  post 'credit_cards/', to: 'credit_cards#retry'
   resources :blogs
   post '/webhook', to: 'credit_cards#create'
   resource :subscriptions, only: [:create]

@@ -1,6 +1,6 @@
 class ProjectController < ApplicationController
   before_action :authenticate_user!, only: [:list]
-
+  before_action :payment_user, only: [:show]
   def index
     @projects = Project.all
   end
@@ -23,6 +23,13 @@ class ProjectController < ApplicationController
     @projects = current_user.projects unless current_user.nil?
     if current_user.payments.blank? || current_user.payments.last.try(:status) == 1
       @projects = @projects.where(free_flg: 1)
+    end
+  end
+  private
+  def payment_user
+    unless current_user.payments.last.try(:status) == "availability"
+      flash.notice = "課金してね"
+      redirect_to root_path
     end
   end
 end

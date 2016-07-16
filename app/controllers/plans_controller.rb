@@ -1,7 +1,7 @@
 class PlansController < ApplicationController
   def index
     check = current_user.payments.last
-    if check.nil?
+    if check.nil? || check.status == "unavailable" || check.status == "closed"
       @plans = Plan.all
     elsif check.amount == 1000
       @plans = Plan.all_showing_user

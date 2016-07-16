@@ -1,29 +1,38 @@
 <h1>受講中のプロジェクト一覧</h1>
-
 <div class="row" data-no-turbolink>
-<br/>
-	<% if @projects.count > 0 %>
-	<%= button_to "課金やめる", credit_card_path(current_user.credit_cards.first.id), method: :delete if current_user.payments.present? %>
-		<% @projects.each do |project| %>
-			<%= link_to project do %>
-				<div class="col s12 m6 l4">
-					<div class="card">
-						<div class="card-image">
-							<%= image_tag project.image %>
-						</div>
-						<div class="card-content" style="height: 6em">
-							<span class="card-title grey-text text-darken-4">
-								<%= project.shortname %>
-							</span>
+  <% if current_user.payments.last.try(:status) == "unavailable" %>
+	  <p>
+		  支払いの確認が取れていないため見ることができません
+	  </p>
+		<%= button_to 'カード復活', credit_cards_path %>
+		<% elsif current_user.payments.last.try(:status) == "closed" %>
+		  <p>
+		  	新しくカードを登録してください
+		  </p>
+			<%= link_to 'カード情報の再登録', plans_path  %>
+		<% elsif @projects.count > 0 %>
+		<%= button_to "課金やめる", credit_card_path(current_user.credit_cards.first.id), method: :delete if current_user.payments.present? %>
+			<% @projects.each do |project| %>
+				<%= link_to project do %>
+					<div class="col s12 m6 l4">
+						<div class="card">
+							<div class="card-image">
+								<%= image_tag project.image %>
+							</div>
+							<div class="card-content" style="height: 6em">
+								<span class="card-title grey-text text-darken-4">
+									<%= project.shortname %>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				<% end %>
 			<% end %>
+		<% else %>
+			<div class="center">
+				<h5>受講中のプロジェクトはありません。</h5>
+				<%= link_to "Show me all Projects", root_path, class: "btn btn-primary" %>
+			</div>
 		<% end %>
-	<% else %>
-		<div class="center">
-			<h5>受講中のプロジェクトはありません。</h5>
-			<%= link_to "Show me all Projects", root_path, class: "btn btn-primary" %>
-		</div>
-	<% end %>
+<br/>
 </div>
