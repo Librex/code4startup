@@ -1,6 +1,6 @@
 class ProjectController < ApplicationController
   before_action :authenticate_user!, only: [:list]
-  before_action :payment_user, only: [:show]
+  # before_action :payment_user, only: [:show]
   def index
     @projects = Project.all
   end

@@ -61,6 +61,8 @@ class Project < ActiveRecord::Base
   end
 
   def self.looking_count(current_user)
-    current_user.payments.where(status: 0).count - current_user.subscriptions.count - 1
+    a = current_user.subscriptions.pluck(:project_id)
+    free_project = Project.find(a).select { |project| project.free_flg == 1 }
+    current_user.payments.where(status: 0).count - current_user.subscriptions.count - 1 + free_project.count
   end
 end
