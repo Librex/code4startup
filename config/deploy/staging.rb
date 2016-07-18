@@ -1,3 +1,3 @@
-role :app, %w{app@staging.code4startup.jp}
-role :web, %w{app@staging.code4startup.jp}
-role :db,  %w{app@staging.code4startup.jp}
+role :app, %w{app@ec2-52-193-185-108.ap-northeast-1.compute.amazonaws.com}
+role :web, %w{app@ec2-52-193-185-108.ap-northeast-1.compute.amazonaws.com}
+role :db,  %w{app@ec2-52-193-185-108.ap-northeast-1.compute.amazonaws.com}
