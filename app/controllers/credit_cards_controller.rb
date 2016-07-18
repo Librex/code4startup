@@ -74,7 +74,6 @@ class CreditCardsController < ApplicationController
       if params[:data][:object][:status] == "closed"
         Payment.create(user_id: credit_card.user_id, status: 2, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
       end
-
     end
 
     if params[:type] == 'recursion.succeeded'

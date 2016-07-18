@@ -47,11 +47,13 @@ class CreditCard < ActiveRecord::Base
      description: "定期購読料"
      )
   end
+
   def recursion_create(params_type)
     if params_type == "recursion.succeeded"
       # 決済成功のメールを送る
     end
   end
+
   def recursion_failed
     if params_type == "recursion.failed"
       availability = false
@@ -64,21 +66,25 @@ class CreditCard < ActiveRecord::Base
     if params[:type] == "customer.created"
     end
   end
+
   def webhook_customer_update
     # 顧客が更新された時のwebhookをキャッチ
     if params[:type] == "customer.updated"
     end
   end
+
   def webhook_customer_delete
     # 顧客が削除された時のwebhookをキャッチ
     if params[:type] == "customer.deleted"
     end
   end
+
   def webhook_recursion_created
     # 定期課金が登録された時webhookキャッチ
     if params[:type] == "recursion_created"
     end
   end
+  
   def webhook_recursion_failed
     if params[:type] == "recursion.failed"
     end

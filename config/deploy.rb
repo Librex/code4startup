@@ -72,4 +72,24 @@ namespace :deploy do
       # end
     end
   end
+  desc 'create plan'
+  task :create_plan do
+    on roles(:app) do
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'plan:create'
+        end
+      end
+    end
+  end
+  desc 'create project'
+  task :create_project do
+    on roles(:app) do
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'project:create'
+        end
+      end
+    end
+  end
 end
