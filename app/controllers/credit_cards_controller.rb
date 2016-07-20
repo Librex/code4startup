@@ -19,6 +19,7 @@ class CreditCardsController < ApplicationController
       User.delete_dependent(current_user)
     end
     # 顧客登録
+    binding.pry
     @user = @webpay.customer.create(card: params['webpay-token'])
     # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
     recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)

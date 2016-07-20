@@ -21,6 +21,12 @@ class Payment < ActiveRecord::Base
   acts_as_paranoid
   belongs_to :user
   belongs_to :plan
+  validates :user_id, presence: true
+  validates :status, presence: true
+  validates :webpay_recursion_id, presence: true
+  validates :amount, presenece: true
+  validates :amount, numericality: true
+
   enum status: { availability: 0, unavailable: 1, closed: 2 }
   def self.create_payment(recursion, current_user, amount)
     self.create(webpay_recursion_id: recursion.id, user_id: current_user.id, status: 0, amount: amount)

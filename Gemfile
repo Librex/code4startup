@@ -55,6 +55,7 @@ group :development, :test, :staging do
   gem 'database_cleaner'
   gem 'spring-commands-rspec'
   gem 'webpay-mock'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -67,6 +68,5 @@ group :development do
   gem 'letter_opener'
   gem 'rubocop', require: false
   gem "rails-erd"
-  gem 'pry-rails'
   gem 'annotate'
 end

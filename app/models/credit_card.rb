@@ -23,6 +23,14 @@ class CreditCard < ActiveRecord::Base
   attr_accessor :card_number, :card_number, :cvc, :amount
   acts_as_paranoid
   belongs_to :user
+  validates :user_id, presence: true
+  validates :date, presence: true, numericality: true, length: { maximum: 2 }
+  validates :year, presence: true, numericality: true, length: { maximum: 4 }
+  validates :cc_type, presence: true
+  validates :last_digits, presence: true, numericality: true
+  validates :webpay_customer_id, presence: true 
+
+
   def self.create_credit_card(current_user, user)
     credit_card = self.new(
       user_id: current_user.id,
@@ -84,7 +92,7 @@ class CreditCard < ActiveRecord::Base
     if params[:type] == "recursion_created"
     end
   end
-  
+
   def webhook_recursion_failed
     if params[:type] == "recursion.failed"
     end
