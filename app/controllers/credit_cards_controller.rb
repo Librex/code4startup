@@ -22,18 +22,18 @@ class CreditCardsController < ApplicationController
     begin
       @user = @webpay.customer.create(card: params['webpay-token'])
       # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
-      recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
-      CreditCard.create_credit_card(current_user, @user)
-      # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
-      UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
-      Subscription.create_subscription(session[:project_id], current_user)
-      # クレジットカードが登録された後に支払い方法が登録される
-      Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
-      redirect_to root_path
     rescue WebPay::ErrorResponse::InvalidRequestError => e
       flash[:error] = e.message
       redirect_to root_path
     end
+    recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
+    CreditCard.create_credit_card(current_user, @user)
+    # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
+    UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
+    Subscription.create_subscription(session[:project_id], current_user)
+    # クレジットカードが登録された後に支払い方法が登録される
+    Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
+    redirect_to root_path
   end
 
   def destroy
