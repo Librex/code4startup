@@ -92,14 +92,4 @@ namespace :deploy do
       end
     end
   end
-  desc 'console'
-  task :console do
-    on roles(:app) do
-      with rails_env: fetch(:rails_env) do
-        within current_path do
-          execute :bundle, :exec, :rails, ':c'
-        end
-      end
-    end
-  end
 end

@@ -24,7 +24,7 @@ class Payment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :status, presence: true
   validates :webpay_recursion_id, presence: true
-  validates :amount, presenece: true
+  validates :amount, presence: true
   validates :amount, numericality: true
 
   enum status: { availability: 0, unavailable: 1, closed: 2 }
