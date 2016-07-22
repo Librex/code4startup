@@ -21,19 +21,19 @@ class CreditCardsController < ApplicationController
     # 顧客登録
     begin
       @user = @webpay.customer.create(card: params['webpay-token'])
+      recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
+      CreditCard.create_credit_card(current_user, @user)
+      # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
+      UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
+      Subscription.create_subscription(session[:project_id], current_user)
+      # クレジットカードが登録された後に支払い方法が登録される
+      Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
+      redirect_to root_path
       # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
     rescue WebPay::ErrorResponse::InvalidRequestError => e
       flash[:error] = e.message
       redirect_to root_path
     end
-    recursion = CreditCard.webpay_customer_create(credit_params['amount'], @user, @webpay)
-    CreditCard.create_credit_card(current_user, @user)
-    # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
-    UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
-    Subscription.create_subscription(session[:project_id], current_user)
-    # クレジットカードが登録された後に支払い方法が登録される
-    Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
-    redirect_to root_path
   end
 
   def destroy
@@ -67,9 +67,15 @@ class CreditCardsController < ApplicationController
   def check_plan_user
     return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != Settings.webpay.credential
     event = JSON.parse(request.body.read)
-    if event['type'] == 'customer.created'
-      # 顧客が作成された時に行いたい処理をここに入れる
-    end
+    # if params['type'] == 'customer.created'
+    #   render status: 200
+    # end
+    # if params['type'] == 'recursion.created'
+    #   render status: 200
+    # end
+    # if params['type'] == 'charge.succeede'
+    #   render status: 200
+    # end
     # charge.failed
     if params[:type] == 'recursion.failed'
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
