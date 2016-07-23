@@ -28,6 +28,7 @@ class CreditCardsController < ApplicationController
       Subscription.create_subscription(session[:project_id], current_user)
       # クレジットカードが登録された後に支払い方法が登録される
       Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
+      200
       redirect_to root_path
       # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
     rescue WebPay::ErrorResponse::InvalidRequestError => e
@@ -39,6 +40,7 @@ class CreditCardsController < ApplicationController
   def destroy
     @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
     User.delete_dependent(current_user)
+    puts 200
     redirect_to root_path
   end
 
@@ -80,7 +82,7 @@ class CreditCardsController < ApplicationController
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
       Payment.create(user_id: credit_card.user_id, status: 0, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
     end
-    status 200
+    puts 200
     redirect_to root_path
   end
 

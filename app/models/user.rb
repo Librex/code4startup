@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :user_plans
 
   def self.delete_dependent(current_user)
-    Subscription.where(user_id: current_user.id).delete_all if current_user.payments.last.amount == 2000
+    Subscription.where(user_id: current_user.id).delete_all
     CreditCard.where(user_id: current_user.id).delete_all
     UserPlan.where(user_id: current_user.id).delete_all
     Payment.where(user_id: current_user.id).delete_all
