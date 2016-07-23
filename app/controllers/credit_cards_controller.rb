@@ -66,17 +66,6 @@ class CreditCardsController < ApplicationController
 
   def check_plan_user
     return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != Settings.webpay.credential
-    event = JSON.parse(request.body.read)
-    # if params['type'] == 'customer.created'
-    #   render status: 200
-    # end
-    # if params['type'] == 'recursion.created'
-    #   render status: 200
-    # end
-    # if params['type'] == 'charge.succeede'
-    #   render status: 200
-    # end
-    # charge.failed
     if params[:type] == 'recursion.failed'
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
       if params[:data][:object][:status] == "suspended"
