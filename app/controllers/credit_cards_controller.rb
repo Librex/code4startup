@@ -65,8 +65,7 @@ class CreditCardsController < ApplicationController
   private
 
   def check_plan_user
-
-    return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != "hookcred_2gn3CpfaLbwNd4MfvF0D57w6fM60A8gdbgHy"
+    return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != Settings.webpay.credential
     event = JSON.parse(request.body.read)
     # if params['type'] == 'customer.created'
     #   render status: 200
@@ -101,6 +100,6 @@ class CreditCardsController < ApplicationController
   end
 
   def set_webpay
-    @webpay = WebPay.new('test_secret_c6E5NG65v0t64FE0N132RbkC')
+    @webpay = WebPay.new(Settings.webpay.access_key)
   end
 end

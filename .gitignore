@@ -1,17 +1,29 @@
-# Created by https://www.gitignore.io/api/osx,rails
 
-### OSX ###
-.DS_Store
+# Created by https://www.gitignore.io/api/rails
+
 ### Rails ###
 *.rbc
+capybara-*.html
 .rspec
-/log/*
-!/log/.keep
+/log
 /tmp
+/db/*.sqlite3
+/db/*.sqlite3-journal
 /public/system
 /coverage/
 /spec/tmp
 **.orig
+rerun.txt
+pickle-email-*.html
+
+# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
+config/initializers/secret_token.rb
+config/secrets.yml
+
+# dotenv
+# TODO Comment out this rule if environment variables can be committed
+.env
+
 ## Environment normalization:
 /.bundle
 /vendor/bundle
@@ -32,9 +44,3 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
-.env
-
-config/application.yml
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml

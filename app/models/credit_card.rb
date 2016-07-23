@@ -28,7 +28,7 @@ class CreditCard < ActiveRecord::Base
   validates :year, presence: true, numericality: true, length: { maximum: 4 }
   validates :cc_type, presence: true
   validates :last_digits, presence: true, numericality: true
-  validates :webpay_customer_id, presence: true 
+  validates :webpay_customer_id, presence: true
 
 
   def self.create_credit_card(current_user, user)
@@ -45,7 +45,7 @@ class CreditCard < ActiveRecord::Base
   end
 
   def self.webpay_customer_create(credit_params, user, webpay)
-    time = Time.now.months_ago(1) + 5.minute
+    time = Time.now.months_ago(1) + 2.minute
     recursion = webpay.recursion.create(
      amount: credit_params,
      currency: "jpy",
