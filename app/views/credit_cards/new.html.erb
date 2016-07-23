@@ -1,7 +1,6 @@
 <p>購入金額: <%= @plan.amount %>円/月</p>
-
 <%= form_for(@credit_card, url: webhook_path) do |f| %>
   <%= f.hidden_field :amount, value: @plan.amount %>
-  <script src="https://checkout.webpay.jp/v1/" class="webpay-button" data-key="<%= 'test_public_fvh7UPd4AfvC6825vxf8oelQ' %>" data-partial="true"></script>
+  <script src="https://checkout.webpay.jp/v1/" class="webpay-button" data-key="<%= Settings.webpay.public_key %>" data-partial="true"></script>
   <%= f.submit '購入' %>
 <% end %>
