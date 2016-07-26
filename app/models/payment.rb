@@ -28,7 +28,19 @@ class Payment < ActiveRecord::Base
   validates :amount, numericality: true
 
   enum status: { availability: 0, unavailable: 1, closed: 2 }
+
   def self.create_payment(recursion, current_user, amount)
     self.create(webpay_recursion_id: recursion.id, user_id: current_user.id, status: 0, amount: amount)
+  end
+
+  def self.card_retry(user, webpay)
+    result = webpay.recursion.retrieve(user.payments.last.webpay_recursion_id)
+    if result.status == "closed"
+      payment = user.payments.last.dup
+      payment.status = 2
+      payment.save
+    else
+      webpay.recursion.resume(id: current_user.payments.last.webpay_recursion_id)
+    end
   end
 end

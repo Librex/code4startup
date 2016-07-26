@@ -46,20 +46,11 @@ class CreditCardsController < ApplicationController
 
   def retry
     begin
-      result = @webpay.recursion.retrieve(current_user.payments.last.webpay_recursion_id)
-      if result.status == "closed"
-        payment = current_user.payments.last.dup
-        payment.status = 2
-        payment.save
-        # Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
-        redirect_to myprojects_path
-      else
-        @webpay.recursion.resume(id: current_user.payments.last.webpay_recursion_id)
-        redirect_to myprojects_path
-      end
+      Payment.card_retry(current_user, @webpay)
+      redirect_to myprojects_path
     rescue => e
       logger.error e
-      flash.notice = "なんらかのエラーが出たよ"
+      flash.notice = "こちらのカードが現在使えません"
       redirect_to myprojects_path
     end
   end
@@ -68,12 +59,16 @@ class CreditCardsController < ApplicationController
 
   def check_plan_user
     return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != Settings.webpay.credential
+
     if params[:type] == 'recursion.failed'
       credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
       if params[:data][:object][:status] == "suspended"
+        Subscription.where(user_id: credit_card.user_id).update_all(deleted_at: Time.now)
         Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
       end
+
       if params[:data][:object][:status] == "closed"
+        Subscription.where(user_id: credit_card.user_id).update_all(deleted_at: Time.now)
         Payment.create(user_id: credit_card.user_id, status: 2, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
       end
     end

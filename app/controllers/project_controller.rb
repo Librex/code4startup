@@ -10,7 +10,7 @@ class ProjectController < ApplicationController
     session[:project_id] = @project.id
     @tasks = @project.tasks.order(:tag)
     @joined = false
-    if !current_user.nil? && !current_user.projects.nil?
+    if current_user.present? && current_user.projects.present?
       @joined = current_user.projects.include?(@project)
     end
     @users = @project.users.order('created_at desc').first(10)
@@ -20,11 +20,12 @@ class ProjectController < ApplicationController
   end
 
   def list
-    @projects = current_user.projects unless current_user.nil?
+    @projects = current_user.projects.with_deleted.uniq unless current_user.nil?
     if current_user.payments.blank? || current_user.payments.last.try(:status) == 1
-      @projects = @projects.where(free_flg: 1)
+      @projects = @projects.where(free_flg: 1).uniq
     end
   end
+
   private
   def payment_user
     unless current_user.payments.last.try(:status) == "availability"
