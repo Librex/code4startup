@@ -14,7 +14,7 @@ class CreditCardsController < ApplicationController
   end
 
   def create
-    if current_user.payments.last.try(:amount) == 1000
+    if current_user.payments.last.try(:amount) == ONLY_ONE_MONTH
       @webpay.recursion.delete(id: current_user.payments.last.webpay_recursion_id)
       User.delete_dependent(current_user)
     end
@@ -26,8 +26,6 @@ class CreditCardsController < ApplicationController
       # クレジットカードが登録された後に中間テーブルのプランユーザテーブルが作成される
       UserPlan.create_user_plan(params[:credit_card][:amount], current_user)
       Subscription.create_subscription(session[:project_id], current_user)
-      # クレジットカードが登録された後に支払い方法が登録される
-      Payment.create_payment(recursion, current_user, params[:credit_card][:amount])
       200
       redirect_to root_path
       # 顧客idも保存しておかないといけないかも(削除時に必要かもしれない)
@@ -40,7 +38,7 @@ class CreditCardsController < ApplicationController
   def destroy
     @webpay.recursion.delete(id: current_user.payments.first.webpay_recursion_id)
     User.delete_dependent(current_user)
-    puts 200
+    200
     redirect_to root_path
   end
 
@@ -59,25 +57,8 @@ class CreditCardsController < ApplicationController
 
   def check_plan_user
     return 400 if env['HTTP_X_WEBPAY_ORIGIN_CREDENTIAL'] != Settings.webpay.credential
-
-    if params[:type] == 'recursion.failed'
-      credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
-      if params[:data][:object][:status] == "suspended"
-        Subscription.where(user_id: credit_card.user_id).update_all(deleted_at: Time.now)
-        Payment.create(user_id: credit_card.user_id, status: 1, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
-      end
-
-      if params[:data][:object][:status] == "closed"
-        Subscription.where(user_id: credit_card.user_id).update_all(deleted_at: Time.now)
-        Payment.create(user_id: credit_card.user_id, status: 2, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
-      end
-    end
-
-    if params[:type] == 'recursion.succeeded'
-      credit_card = CreditCard.find_by(webpay_customer_id: params[:data][:object][:customer])
-      Payment.create(user_id: credit_card.user_id, status: 0, amount: params[:data][:object][:amount], webpay_recursion_id: params[:data][:object][:id])
-    end
-    puts 200
+    CreditCard.check_plan_user(params)
+    200
     redirect_to root_path
   end
 
