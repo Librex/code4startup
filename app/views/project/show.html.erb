@@ -72,7 +72,7 @@
 			<div class="card z-depth-2">
 					<div class="card-action center">
 							<div class="center">
-								<<% if @project.free_flg == 1 %>
+								<% if @project.free_flg == 1 %>
 								<h1>free</h1>
 									<%= form_tag free_path do %>
 										<%= hidden_field_tag 'project_id', @project.id %>
