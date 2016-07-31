@@ -117,7 +117,7 @@ resources :plans, only: [:new, :create, :index]
 
   get 'pages/about'
   get '/myprojects' => 'project#list'
-  post '/free' => 'charge#free'
+  post '/free' => 'charge#create'
 
   root 'project#index'
 

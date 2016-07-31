@@ -29,6 +29,8 @@ class Payment < ActiveRecord::Base
 
   enum status: { availability: 0, unavailable: 1, closed: 2 }
 
+  scope :already_registration, -> {where(amount: 2000, status: 0)}
+
   def self.create_payment(recursion, current_user, amount)
     self.create(webpay_recursion_id: recursion.id, user_id: current_user.id, status: 0, amount: amount)
   end

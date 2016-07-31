@@ -4,6 +4,7 @@
 	  <p>
 		  支払いの確認が取れていないため見ることができません
 	  </p>
+    <p>管理者に問い合わせてください</p>
 		<%= button_to 'カード復活', credit_cards_path %>
 		<% elsif current_user.payments.last.try(:status) == "closed" %>
 		  <p>

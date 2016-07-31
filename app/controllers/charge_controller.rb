@@ -1,7 +1,7 @@
 class ChargeController < ApplicationController
   before_action :authenticate_user!
 
-  def free
+  def create
     project = Project.find(session[:project_id])
     current_user.subscriptions.create(project: project)
 
