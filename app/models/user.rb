@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
   has_many :plans, through: :user_plans
   has_many :user_plans
 
+  scope :beginning_10_people, -> {order('created_at desc').first(10)}
+
   def self.delete_dependent(current_user)
     Subscription.where(user_id: current_user.id).update_all(deleted_at: Time.now)
     CreditCard.where(user_id: current_user.id).delete_all

@@ -15,10 +15,8 @@ class PlansController < ApplicationController
       end
     elsif check.blank? && checks.already_registration.present?
       @plans = Plan.all_showing_user
-      return
     else
       @plans = Plan.all
-      return
     end
   end
 end

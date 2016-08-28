@@ -24,6 +24,10 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
 
   require 'omniauth-github'
-  config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: "user:email"
-
+  if Rails.env.production?
+    config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: "user:email"
+  else
+    config.omniauth :github, ENV['GITHUB_CLIENTID'], ENV['GITHUB_CLIENTSECRET'], scope: "user:email"
+  end
+  
 end

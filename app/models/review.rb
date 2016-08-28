@@ -24,4 +24,5 @@
 class Review < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
+  scope :mine, ->(current_user) { find_by(user_id: current_user.id) if current_user }
 end
