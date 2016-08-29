@@ -7,12 +7,13 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  deleted_at :datetime
 #
 # Indexes
 #
-#  index_subscriptions_on_project_id              (project_id)
-#  index_subscriptions_on_project_id_and_user_id  (project_id,user_id) UNIQUE
-#  index_subscriptions_on_user_id                 (user_id)
+#  index_subscriptions_on_deleted_at  (deleted_at)
+#  index_subscriptions_on_project_id  (project_id)
+#  index_subscriptions_on_user_id     (user_id)
 #
 # Foreign Keys
 #
@@ -21,6 +22,12 @@
 #
 
 class Subscription < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :project
   belongs_to :user
+
+  def self.create_subscription(session, current_user)
+    self.create(project_id: session, user_id: current_user.id)
+    session = nil
+  end
 end

@@ -105,6 +105,8 @@
 
 Rails.application.routes.draw do
 
+resources :plans, only: [:new, :create, :index]
+
   get 'pages/privacypolicy'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -112,13 +114,13 @@ Rails.application.routes.draw do
 
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', edit: 'profile' },
               controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'users/registrations' }
-              
+
   get 'pages/about'
   get '/myprojects' => 'project#list'
-  post '/free' => 'charge#free'
+  post '/free' => 'charge#create'
 
   root 'project#index'
-  
+
   resources :project do
   resources :task, only: [:show]
   end
@@ -126,8 +128,12 @@ Rails.application.routes.draw do
   resources :project do
     resources :reviews, only: [:create, :destroy]
   end
-  
+  resources :credit_cards, only: [:new, :destroy]
+  post 'credit_cards/:plan_id', to: 'credit_cards#new'
+  post 'credit_cards/', to: 'credit_cards#retry'
   resources :blogs
+  post '/webhook', to: 'credit_cards#create'
+  resource :subscriptions, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -43,11 +43,19 @@ gem 'unicorn-worker-killer'
 gem 'dotenv-rails'
 
 gem 'paranoia'
+gem 'webpay'
 
-group :development, :test do
+group :development, :test, :staging do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'spring-commands-rspec'
+  gem 'webpay-mock'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -60,6 +68,5 @@ group :development do
   gem 'letter_opener'
   gem 'rubocop', require: false
   gem "rails-erd"
-  gem 'pry-rails'
   gem 'annotate'
 end

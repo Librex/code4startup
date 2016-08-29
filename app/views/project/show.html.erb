@@ -1,31 +1,14 @@
+
 <% content_for :head do %>
 	<title><%= @project.name %> | Code4Pro</title>
-
-	<!-- Twitter Card data -->
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@Code4Startup-Japan">
-	<meta name="twitter:creator" content="@Code4Startup-Japan">
-	<meta name="twitter:title" content="<%= @project.name %>">
-	<meta name="twitter:description" content="<%= @project.content %>">
-	<meta name="twitter:image:src" content="<%= image_url @project.image %>">
-
-	<!-- Open Graph data -->
-	<meta property="og:site_name" content="Code4Startup-Japan">
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="<%= @project.name %>">
-	<meta property="og:description" content="<%= @project.content %>">
-	<meta property="og:image" content="<%= @project.image %>">
+	<%= render 'twitter_card' %>
 <% end %>
-
 <div class="row">
-
-
 	<div class="col m8">
 		<div class="card z-depth-2">
 			<div class="card-image">
 				<%= image_tag @project.image %>
 			</div>
-
 			<div class="row">
 		    <div class="col s12">
 		      <ul class="tabs">
@@ -41,14 +24,11 @@
 						<p> <%= @reviews.count %> <%= @reviews.count > 1? "Reviews" : "Review" %></p>
 						<hr>
 						<%= @project.content %>
-
 						<h4>Reviews</h4>
 						<div><%= render 'reviews/form' if @joined && !@hasReview %></div>
 						<div><%= render 'reviews/index' %></div>
-
 					</div>
 		    </div>
-
 		    <div id="videos" class="col s10 offset-s1">
 		    	<div class="collection" data-no-turbolink>
 						<% @tasks.each do |task| %>
@@ -64,38 +44,17 @@
 						<% end %>
 					</div>
 		    </div>
-
 		    <div id="discussions" class="col s12">
 		    	<!-- Discussion would be here -->
 		    </div>
 		  </div>
-
 		</div>
 	</div>
 
-	<div class="col m4">
-		<div class="card z-depth-2">
-
-			<% if !@joined %>
-
-				<div class="center">
-					<h1><%= @project.price == 0? "Free" : "$#{@project.price}" %></h1>
-				</div>
-				<div class="card-action center">
-					<% if user_signed_in? %>
-						<%= form_tag free_path do %>
-							<%= hidden_field_tag 'project_id', @project.id %>
-							<button type="submit" class="btn orange">このプロジェクトを受講する</button>
-						<% end %>
-					<% else %>
-						<%= link_to new_user_session_path do %>
-							<button type="submit" class="btn orange">このプロジェクトを受講する</button>
-						<% end %>
-					<% end %>
-				</div>
-
-			<% else %>
-
+	<% if user_signed_in? %>
+	<% @count = Project.looking_count(current_user) %>
+		<% if @project.subscriptions.where(user_id: current_user.id).any?  %>
+			<h1>受講中</h1>
 				<div class="card-content center">
 					<%= image_tag avatar_url(current_user), class: "circle responsive-img avatar-medium" %><br/>
 					<h5><%= current_user.name %></h5>
@@ -108,13 +67,28 @@
 						</span><br/>
 					<% end %>
 				</div>
-
+    <% else %>
+		<div class="col m4">
+			<div class="card z-depth-2">
+					<div class="card-action center">
+							<div class="center">
+								<% if @project.free_flg == 1 %>
+								<h1>free</h1>
+									<%= form_tag free_path do %>
+										<%= hidden_field_tag 'project_id', @project.id %>
+									<% end %>
+									<%= button_to "このプロジェクトを受講する", free_path, class: "btn orange" %>
+								<% elsif @project.free_flg == 2 %>
+									<h1>Get,Started</h1>
+									  <%= button_to 'ポイントを消費して購入する', :subscriptions,  data: { confirm: "あと#{@count}つ登録できます" } unless @count <= 0 %>
+								    <%= link_to "このプロジェクトを受講する", plans_path, project_id: @project.id, class: "btn orange" %>
+							  <% end %>
+						</div>
+					</div>
 			<% end %>
-
 		</div>
 	</div>
 </div>
-
 <script>
 	$('#average_rating').raty({
 		path: '/images',
@@ -122,3 +96,4 @@
 		score: <%= @project.average_rating %>
 	});
 </script>
+<% end %>

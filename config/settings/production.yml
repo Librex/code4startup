@@ -4,3 +4,6 @@ aws:
   s3:
     endpoint: s3-ap-northeast-1.amazonaws.com
     bucket: code4startup-image
+webpay:
+  access_key: test_secret_c6E5NG65v0t64FE0N132RbkC
+  credential: hookcred_2gn3CpfaLbwNd4MfvF0D57w6fM60A8gdbgHy

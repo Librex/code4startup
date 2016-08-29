@@ -21,6 +21,14 @@ module Code4startup
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.web_console.development_only = false
     config.active_record.raise_in_transactional_callbacks = true
+    config.generators do |g|
+      g.helper false
+      g.assets false
+      g.test_framework :rspec
+      g.controller_specs false
+      g.view_specs false
+    end
   end
 end

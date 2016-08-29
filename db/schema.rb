@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531224444) do
+ActiveRecord::Schema.define(version: 20160713071428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,21 @@ ActiveRecord::Schema.define(version: 20160531224444) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "date",               null: false
+    t.string   "year",               null: false
+    t.string   "cc_type",            null: false
+    t.integer  "last_digits",        null: false
+    t.integer  "user_id",            null: false
+    t.string   "name",               null: false
+    t.string   "webpay_customer_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "deleted_at"
+  end
+
+  add_index "credit_cards", ["deleted_at"], name: "index_credit_cards_on_deleted_at", using: :btree
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -69,12 +84,32 @@ ActiveRecord::Schema.define(version: 20160531224444) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "user_id",             null: false
+    t.text     "error_log"
+    t.integer  "status",              null: false
+    t.string   "webpay_recursion_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.datetime "deleted_at"
+    t.integer  "amount"
+  end
+
+  add_index "payments", ["deleted_at"], name: "index_payments_on_deleted_at", using: :btree
+
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "content"
-    t.integer  "price"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "free_flg",           default: 1
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -103,9 +138,10 @@ ActiveRecord::Schema.define(version: 20160531224444) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
-  add_index "subscriptions", ["project_id", "user_id"], name: "index_subscriptions_on_project_id_and_user_id", unique: true, using: :btree
+  add_index "subscriptions", ["deleted_at"], name: "index_subscriptions_on_deleted_at", using: :btree
   add_index "subscriptions", ["project_id"], name: "index_subscriptions_on_project_id", using: :btree
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
@@ -124,6 +160,13 @@ ActiveRecord::Schema.define(version: 20160531224444) do
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
   add_index "tasks", ["slug"], name: "index_tasks_on_slug", unique: true, using: :btree
 
+  create_table "user_plans", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "plan_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -141,6 +184,7 @@ ActiveRecord::Schema.define(version: 20160531224444) do
     t.string   "provider"
     t.string   "uid"
     t.string   "image"
+    t.boolean  "student_flg"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

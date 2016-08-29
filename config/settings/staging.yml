@@ -1,0 +1,10 @@
+aws:
+  access_key: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3:
+    endpoint: s3-ap-northeast-1.amazonaws.com
+    bucket: dev-code4startup-image
+webpay:
+  public_key: test_public_fSm0OvaW60Mg06M41T2nn9uL
+  access_key: test_secret_04X42y0lGeIJh291gm9QE04q
+  credential: hookcred_0oI6om7PK24HcI38gYaiG8if76weoaeysgts

@@ -1,0 +1,45 @@
+<!-- プランを選択する画面 -->
+<div class="container">
+  <div class="row">
+    <% @plans.each do |plan| %>
+      <div class="col l6 s12">
+        <div class="card blue-grey">
+          <% if plan.id == 1 %>
+          <div class="card-content white-text">
+            <span class="card-title">Value Plan</span>
+            <div class="card-content">
+              <p>
+                一個購入できる説明
+              </p>
+            </div>
+          </div>
+        </div>
+        <p>$<%= plan.amount %>/mo</p>
+        <div class="card-action">
+          <%= button_to "Get Started", new_credit_card_path(plan), class: "waves-effect waves-light btn-large" %>
+        </div>
+      </div>
+    </row>
+    <div class="row">
+      <div class="col l6 s12">
+        <div class="card blue-grey">
+          <% elsif plan.id == 2 %>
+          <div class="card-content white-text">
+            <span class="card-title">Unlimeted Plan</span>
+          <div class="card-content">
+            <p>
+              無制限の説明
+            </p>
+          </div>
+        </div>
+        </div>
+        <p>$<%= plan.amount %>/mo</p>
+        <div class="card-actioin">
+          <%= button_to "Get Started",new_credit_card_path(plan), class: "waves-effect waves-light btn-large" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
