@@ -44,13 +44,11 @@ class CreditCard < ActiveRecord::Base
   end
 
   def self.webpay_customer_create(credit_params, user, webpay)
-    time = Time.now.months_ago(1) + 2.minute
     recursion = webpay.recursion.create(
      amount: credit_params,
      currency: "jpy",
      customer: user.id,
      period: :month,
-     first_scheduled: Time.parse("#{time}").to_i,
      description: "定期購読料"
      )
   end
