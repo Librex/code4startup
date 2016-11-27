@@ -70,3 +70,4 @@ Issue作る時に、お願いしたいことをなるべく明確にするよう
 ```
 bundle install --path vendor/bundle
 ```
+test
